@@ -1,0 +1,14 @@
+doctype html
+html
+    head
+        title= title
+        link(rel='stylesheet', href='/stylesheets/style.css')
+        link(rel='stylesheet', href='/stylesheets/bootstrap-flatly.css')
+        script(src='/javascripts/jquery.js')
+        script(src='/javascripts/bootstrap.js')
+    body
+        include components/navbar
+        .jumbotron.flex-lg-fill.container
+            block content
+    footer
+        include components/footer

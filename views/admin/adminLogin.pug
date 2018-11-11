@@ -1,0 +1,20 @@
+extends ../layout
+
+block content
+    .jumbotron
+        .h1 #{title}
+        .container.m-0
+            .table
+                .row.m-3.form
+                    .col-lg
+                        .h3 Enter Credentials:
+                    .col-lg.text-center
+                        .form-group.row
+                            .col-sm-10
+                                input#inputUID1.form-control(type='text', placeholder='Username')
+                        .form-group.row
+                            .col-sm-10
+                                input#inputPassword1.form-control(type='password', placeholder='Password')
+                    .col-lg
+                        a.btn.btn-primary.btn-lg(href='/admin/manage') Login
+                    .col-lg.text-center

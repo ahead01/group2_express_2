@@ -1,0 +1,34 @@
+extends ../layout
+
+block content
+    .jumbotron
+        .h1 #{title}
+        .container.m-0
+            .table
+                .row.m-3.form
+                    .col-lg.text-center
+                        .h2 Current Users:
+                    .col-lg.text-center
+                        .form-group.row
+                            .col-sm-10
+                                input#inputUID1.form-control(type='email', placeholder='Email')
+                        .form-group.row
+                            .col-sm-10
+                                input#inputPassword1.form-control(type='password', placeholder='Password')
+                    .col-lg.text-center
+                        a.btn.btn-primary.btn-lg(href='/student/search') Login
+                .row.m-3.form
+                    .col-lg.text-center
+                        .h2 New Users:
+                    .col-lg.text-center
+                        .form-group.row
+                            .col-sm-10
+                                input#inputUID2.form-control(type='email', placeholder='Email')
+                        .form-group.row
+                            .col-sm-10
+                                input#inputPassword2.form-control(type='password', placeholder='Password')
+                        .form-group.row
+                            .col-sm-10
+                                input#inputPassword3.form-control(type='password', placeholder='Confirm Password')
+                    .col-lg.text-center
+                        a.btn.btn-primary.btn-lg(href='/student/search') Register

@@ -1,0 +1,36 @@
+extends ../layout
+
+block content
+    .jumbotron
+        .h1 #{title}
+        .container
+            .table
+                .row.m-3
+                .row
+                    .col-lg.text-center
+                        a.btn.btn-lg.btn-primary.btn-block.text-white(href="/admin/manage/inst") View New Institution Requests
+                    .col-lg.text-center
+                        a.btn.btn-lg.btn-primary.btn-block.text-white(href="/admin/add/inst") Manually Add Institution
+        .table
+            .row.m-3
+                .col-lg
+                    .h2 Manage Current Institutions
+            .row.m-3
+                .col-lg.text-center
+                    .h4 Keyword Search
+                .col-lg
+                    .form-group.row
+                        .col-sm-10
+                            input#inputSearch.form-control(type='text', placeholder='Keyword')
+            .row.m-3
+            each val, index in results.list
+                .row
+                    .col-sm-2
+                    .col-lg
+                        .card.text-white.bg-primary.mb-3
+                            .card-header #{val.name}
+                                a.close #{val.inst}
+                            .card-body Course Description: #{val.desc}
+                    .col-sm-1
+
+

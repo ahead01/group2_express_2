@@ -1,0 +1,25 @@
+extends layout
+
+block content
+    .h1.m-5 #{title}
+    .p.lead.m-5 Welcome to the #{title}
+    .table
+        .row.m-3
+        .row.m-3
+        .row.m-3
+        .row.m-3
+        .row
+            .col-lg
+            .col-lg.text-center
+                a.btn.btn-primary.btn-lg.btn-block(href="/student/login") Students
+            .col-lg.text-center
+                a.btn.btn-primary.btn-lg.btn-block(href="/inst/login") Institutions
+            .col-lg
+        .row.m-3
+        .row
+            .col-lg
+            .col-lg.text-center
+                .blockquote Find a course in your area on what you want to learn.
+            .col-lg.text-center
+                .blockquote Market your courses to students who want to take them.
+            .col-lg

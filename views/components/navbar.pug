@@ -1,0 +1,15 @@
+nav.navbar.navbar-expand-lg.navbar-light.bg-dark.fixed-top
+    a.navbar-brand(href='/') Home
+    button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarColor02', aria-controls='navbarColor02', aria-expanded='false', aria-label='Toggle navigation')
+        span.navbar-toggler-icon
+    #navbarColor02.collapse.navbar-collapse
+        ul.navbar-nav.mr-auto
+            li.nav-item
+                a.nav-link(href='/student/login') Student
+            li.nav-item
+                a.nav-link(href='/inst/login') Institution
+            li.nav-item
+                a.nav-link(href='/admin/login') Admin
+        form.form-inline.my-2.my-lg-0
+            input.form-control.mr-sm-2(type='text', placeholder='Search')
+            button.btn.btn-secondary.my-2.my-sm-0(type='submit') Search

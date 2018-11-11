@@ -1,0 +1,33 @@
+extends ../layout
+
+block content
+    .jumbotron
+        .h1 #{title}
+        .container
+            .row.m-3.form
+                .col-lg
+                    .h3 Add Institutions:
+                .col-lg
+                    .form-group.row
+                        .col-sm-10
+                            input#inputUID2.form-control(type='email', placeholder='Name')
+                    .form-group.row
+                        .col-sm-10
+                            input#inputPassword2.form-control(type='password', placeholder='Password')
+                    .form-group.row
+                        .col-sm-10
+                            input#inputPassword3.form-control(type='password', placeholder='Confirm Password')
+                .col-lg.text-center
+                    .form-group.row
+                        .col-md
+                            input#inputAddress.form-control(type='password', placeholder='Address')
+                    .form-group.row
+                        .col-sm-8
+                            input#inputZip.form-control(type='password', placeholder='Zipcode')
+                    .form-group.row
+                        .col-sm
+                            input#inputCity.form-control(type='password', placeholder='City')
+                        .col-sm
+                            input#inputState.form-control(type='password', placeholder='State')
+                .col-lg.text-center
+                    a.btn.btn-primary.btn-lg(href='/admin/manage') Add

@@ -1,0 +1,23 @@
+extends ../layout
+
+block content
+    .jumbotron
+        .h1 #{title}
+        .container
+            .table
+                each val, index in results.list
+                    .row
+                        .col-sm-2
+                            .h3 Request: #{index + 1}
+                        .col-lg
+                            .card
+                                .card-header #{val.name}
+                                .card-body #{val.desc}
+                                .card-footer #{val.address}
+                        .col-lg
+                            .row
+                                .col-sm.text-center
+                                    a.btn.btn-secondary.btn-lg Approve
+                                .col-sm
+                                    a.btn.btn-danger.btn-lg Deny
+                    .row.m-2

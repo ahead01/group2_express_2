@@ -1,0 +1,48 @@
+extends ../layout
+
+block content
+    .jumbotron
+        .h1 #{title}
+        .container.m-0
+            .table
+                .row.m-3.form
+                    .col-lg
+                        .h3 Current Institutions:
+                    .col-lg.text-center
+                        .form-group.row
+                            .col-sm-10
+                                input#inputUID1.form-control(type='text', placeholder='Name')
+                        .form-group.row
+                            .col-sm-10
+                                input#inputPassword1.form-control(type='password', placeholder='Password')
+                    .col-lg
+                        a.btn.btn-primary.btn-lg(href='/inst/edit') Login
+                    .col-lg.text-center
+                .row.m-9
+                .row.m-3.form
+                    .col-lg
+                        .h3 New Institutions:
+                    .col-lg
+                        .form-group.row
+                            .col-sm-10
+                                input#inputUID2.form-control(type='email', placeholder='Name')
+                        .form-group.row
+                            .col-sm-10
+                                input#inputPassword2.form-control(type='password', placeholder='Password')
+                        .form-group.row
+                            .col-sm-10
+                                input#inputPassword3.form-control(type='password', placeholder='Confirm Password')
+                    .col-lg.text-center
+                        .form-group.row
+                           .col-md
+                               input#inputAddress.form-control(type='password', placeholder='Address')
+                        .form-group.row
+                           .col-sm-8
+                               input#inputZip.form-control(type='password', placeholder='Zipcode')
+                        .form-group.row
+                           .col-sm
+                               input#inputCity.form-control(type='password', placeholder='City')
+                           .col-sm
+                               input#inputState.form-control(type='password', placeholder='State')
+                    .col-lg.text-center
+                        a.btn.btn-primary.btn-lg(href='/inst/login/reg') Request To Join
