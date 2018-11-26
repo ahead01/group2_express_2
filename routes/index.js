@@ -1,11 +1,14 @@
 var express = require('express');
 var router = express.Router();
 
-var institutions = {"list":[
-        {"name":"Public Institution 1","email":"sample@institution.edu","desc":"1Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit."},
-        {"name":"Public Institution 2", "desc":"2Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit."},
-        {"name":"Public Institution 3","desc":"3Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit."},
-        {"name":"Public Institution 4","desc":"3Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit."}]};
+
+/* Controllers */
+var instController = require('../controllers/inst-cont');
+var adminController = require('../controllers/admin-cont');
+var studentController = require('../controllers/student-cont');
+
+var institutions = {"list":[]};
+
 var courses = {"list":[
         {"name":"Course Number 1","desc":"1Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.","seats":5,"inst":"Public Institution 1"},
         {"name":"Course Number 2","desc":"1Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.","seats":10,"inst":"Public Institution 1"},
@@ -18,80 +21,57 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Private Institution Marketing Application' });
 });
 
+/* ******************** START INSTITUTION ******************** */
 /* 8 GET Institution Login / Register page. */
-router.get('/inst/login', function(req, res, next) {
-    res.render('inst/instLogin', { title: 'Institution Login' });
-});
+router.get('/inst/login', instController.inst_login);
 
 /* 14 GET Institution Register Success page. */
-router.get('/inst/login/reg', function(req, res, next) {
-    res.render('inst/instRegistered', { title: 'Thank You For Registring!',message: ' Your registration will be processed within the next 24 business hours.' });
-});
+router.get('/inst/login/reg', instController.inst_login_reg);
 
 /* 9 GET Institution Edit page. */
-router.get('/inst/edit', function(req, res, next) {
-    res.render('inst/instEdit', { title: 'Institution Edit' });
-});
+router.get('/inst/edit', instController.inst_edit);
 
 /* 7 GET Instutution Home page. */
-router.get('/inst/home', function(req, res, next) {
-    res.render('inst/instHome', { title: 'Institution Home' });
-});
+router.get('/inst/home', instController.inst);
 
 /* 5 GET Institution Classes */
-router.get('inst/home/class', function (req, res, next){
-    res.render('inst/instClass', {title: 'Institution Classes'})
-});
+router.get('inst/home/class', instController.inst_classes);
+/* ******************** END INSTITUTION ******************** */
 
+
+/* ******************** START STUDENT ******************** */
 /* 2 GET Student Login / Register page. */
-router.get('/student/login', function(req, res, next) {
-    res.render('student/sdntLogin', { title: 'Student Login' });
-});
+router.get('/student/login', studentController.student_login);
 
 /* 3 GET Student Search page. */
-router.get('/student/search', function(req, res, next) {
-    res.render('student/sdntSearch', { title: 'Student Search' });
-});
+router.get('/student/search', studentController.student_search);
 
 /* 4 GET Student Keyword Search Results page. */
-router.get('/student/search/keyword', function(req, res, next) {
-    res.render('student/sdntSearchKey', { title: 'Student Keyword Search Results',results: courses });
-});
+router.get('/student/search/keyword', studentController.student_search_keyword);
 
-/* 6 GET Student Keyword Search Results page. */
-router.get('/student/search/location', function(req, res, next) {
-    res.render('student/sdntSearchLoc', { title: 'Student Location Search Results' });
-});
+/* 6 GET Student Location Search Results page. */
+router.get('/student/search/location', studentController.student_search_location);
+/* ******************** END STUDENT ******************** */
 
+
+/* ******************** START ADMIN ******************** */
 /* 10 GET Admin Login page. */
-router.get('/admin/login', function(req, res, next) {
-    res.render('admin/adminLogin', { title: 'Admin Login' });
-});
+router.get('/admin/login', adminController.admin_login);
 
 /* 11 GET Admin Search page. */
-router.get('/admin/search', function(req, res, next) {
-    res.render('admin/adminSearch', { title: 'Admin Search', results: institutions });
-});
+router.get('/admin/search', adminController.admin_search);
 
 /* 16 GET Admin Search Results page. */
-router.get('/admin/search/result', function(req, res, next) {
-    res.render('admin/adminSearchResult', { title: 'Admin Search Results' });
-});
+router.get('/admin/search/result', adminController.admin_search_results);
 
 /* 12 GET Admin Manage page. ( For Approving and Denying Inst Registration Requests */
-router.get('/admin/manage', function(req, res, next) {
-    res.render('admin/adminManage', { title: 'Admin Management', results: institutions });
-});
+router.get('/admin/manage', adminController.admin_manage);
 
 /* 13 GET Admin Manage Institution page. */
-router.get('/admin/manage/inst', function(req, res, next) {
-    res.render('admin/adminManageInst', { title: 'Admin Manage Institution Requests', results: institutions });
-});
+router.get('/admin/manage/inst', adminController.admin_manage_inst);
 
 /* 15 GET Admin Add Institution page. */
-router.get('/admin/add/inst', function(req, res, next) {
-    res.render('admin/adminAddInst', { title: 'Admin Add Institution' });
-});
-
+router.get('/admin/add/inst', adminController.amdin_add_inst);
+/* ******************** END ADMIN ******************** */
 
 module.exports = router;
