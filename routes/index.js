@@ -71,7 +71,10 @@ router.get('/admin/manage', adminController.admin_manage);
 router.get('/admin/manage/inst', adminController.admin_manage_inst);
 
 /* 15 GET Admin Add Institution page. */
-router.get('/admin/add/inst', adminController.amdin_add_inst);
+router.get('/admin/add/inst', adminController.get_amdin_add_inst);
+
+/* 15 POST Admin Add Institution page. */
+router.post('/admin/add/inst', adminController.post_amdin_add_inst);
 /* ******************** END ADMIN ******************** */
 
 module.exports = router;

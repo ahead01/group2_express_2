@@ -1,11 +1,11 @@
-var servicehost = 'localhost';
-var serviceport = 8080;
+
+var config = require('../bin/config');
 var http = require('http');
 
 
-var config = {
-    host: servicehost,
-    port: serviceport,
+var options = {
+    host: config.servicehost,
+    port: config.serviceport,
     path: '/',
     method: 'GET'
 };
@@ -22,8 +22,8 @@ exports.student_search = function(req, res, next) {
 
 /* 4 GET Student Keyword Search Results page. */
 exports.student_search_keyword = function(req, res, next) {
-    config.path = '/class/getall';
-    http.request(config, function(resp) {
+    options.path = '/class/getall';
+    http.request(options, function(resp) {
         //console.log('STATUS: ' + res.statusCode);
         //console.log('HEADERS: ' + JSON.stringify(res.headers));
         //console.log(JSON.stringify(res.data));

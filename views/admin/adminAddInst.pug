@@ -4,30 +4,30 @@ block content
     .jumbotron
         .h1 #{title}
         .container
-            .row.m-3.form
+            form.row.m-3.form(action='/admin/add/inst/', method='POST')
                 .col-lg
                     .h3 Add Institutions:
                 .col-lg
                     .form-group.row
                         .col-sm-10
-                            input#inputUID2.form-control(type='email', placeholder='Name')
+                            input#inputUID2.form-control(type='email', placeholder='Name', name='institutionName')
                     .form-group.row
                         .col-sm-10
-                            input#inputPassword2.form-control(type='password', placeholder='Password')
+                            input#inputPassword.form-control(type='password', placeholder='Password', name='institutionPWD')
                     .form-group.row
                         .col-sm-10
-                            input#inputPassword3.form-control(type='password', placeholder='Confirm Password')
+                            input#inputPassword2.form-control(type='password', placeholder='Confirm Password', name='password2',)
                 .col-lg.text-center
                     .form-group.row
                         .col-md
-                            input#inputAddress.form-control(type='password', placeholder='Address')
+                            input#inputAddress.form-control(type='text', placeholder='Address', name='institutionStreetAddr')
                     .form-group.row
                         .col-sm-8
-                            input#inputZip.form-control(type='password', placeholder='Zipcode')
+                            input#inputZip.form-control(type='text', placeholder='Zipcode', name='institutionZipCD')
                     .form-group.row
                         .col-sm
-                            input#inputCity.form-control(type='password', placeholder='City')
+                            input#inputCity.form-control(type='text', placeholder='City', name='institutionCity')
                         .col-sm
-                            input#inputState.form-control(type='password', placeholder='State')
+                            input#inputState.form-control(type='text', placeholder='State', name='institutionStateCD')
                 .col-lg.text-center
-                    a.btn.btn-primary.btn-lg(href='/admin/manage') Add
+                    button.btn.btn-primary.btn-lg(type='submit') Add

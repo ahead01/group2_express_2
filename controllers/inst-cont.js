@@ -1,11 +1,9 @@
-var servicehost = 'localhost';
-var serviceport = 8080;
 var http = require('http');
+var config = require('../bin/config');
 
-
-var config = {
-    host: servicehost,
-    port: serviceport,
+var options = {
+    host: config.servicehost,
+    port: config.serviceport,
     path: '/',
     method: 'GET'
 };

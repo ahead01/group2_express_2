@@ -1,17 +1,12 @@
-var servicehost = 'localhost';
-var serviceport = 8080;
 var http = require('http');
+var config = require('../bin/config');
 
-
-var config = {
-    host: servicehost,
-    port: serviceport,
+var options = {
+    host: config.servicehost,
+    port: config.serviceport,
     path: '/',
     method: 'GET'
 };
-
-
-
 
 
 /* 10 GET Admin Login page. */
@@ -21,8 +16,8 @@ exports.admin_login = function(req, res, next) {
 
 /* 11 GET Admin Search page. */
 exports.admin_search = function(req, res, next) {
-    config.path = '/inst/getall';
-    http.request(config, function(resp) {
+    options.path = '/inst/getall';
+    http.request(options, function(resp) {
         //console.log('STATUS: ' + res.statusCode);
         //console.log('HEADERS: ' + JSON.stringify(res.headers));
         //console.log(JSON.stringify(res.data));
@@ -31,7 +26,7 @@ exports.admin_search = function(req, res, next) {
             //console.log('BODY: ' + chunk);
             var institutions = {'list':[]};
             institutions.list = JSON.parse(chunk);
-            console.log(institutions);
+            //console.log(institutions);
             res.render('admin/adminSearch', { title: 'Admin Search', results: institutions });
         });
     }).end();
@@ -44,8 +39,8 @@ exports.admin_search_results = function(req, res, next) {
 
 /* 12 GET Admin Manage page. ( For Approving and Denying Inst Registration Requests */
 exports.admin_manage =  function(req, res, next) {
-    config.path = '/inst/getall';
-    http.request(config, function(resp) {
+    options.path = '/inst/getall';
+    http.request(options, function(resp) {
         //console.log('STATUS: ' + res.statusCode);
         //console.log('HEADERS: ' + JSON.stringify(res.headers));
         //console.log(JSON.stringify(res.data));
@@ -54,7 +49,7 @@ exports.admin_manage =  function(req, res, next) {
             //console.log('BODY: ' + chunk);
             var institutions = {'list':[]};
             institutions.list = JSON.parse(chunk);
-            console.log(institutions);
+            //console.log(institutions);
             res.render('admin/adminManage', { title: 'Admin Management', results: institutions });
         });
     }).end();
@@ -63,8 +58,8 @@ exports.admin_manage =  function(req, res, next) {
 
 /* 13 GET Admin Manage Institution page. */
 exports.admin_manage_inst =  function(req, res, next) {
-    config.path = '/inst/getall';
-    http.request(config, function(resp) {
+    options.path = '/inst/getall';
+    http.request(options, function(resp) {
         //console.log('STATUS: ' + res.statusCode);
         //console.log('HEADERS: ' + JSON.stringify(res.headers));
         //console.log(JSON.stringify(res.data));
@@ -73,7 +68,7 @@ exports.admin_manage_inst =  function(req, res, next) {
             //console.log('BODY: ' + chunk);
             var institutions = {'list':[]};
             institutions.list = JSON.parse(chunk);
-            console.log(institutions);
+            //console.log(institutions);
             res.render('admin/adminManageInst', { title: 'Admin Manage Institution Requests', results: institutions });
         });
     }).end();
@@ -81,6 +76,32 @@ exports.admin_manage_inst =  function(req, res, next) {
 };
 
 /* 15 GET Admin Add Institution page. */
-exports.amdin_add_inst =  function(req, res, next) {
+exports.get_amdin_add_inst =  function(req, res, next) {
     res.render('admin/adminAddInst', { title: 'Admin Add Institution' });
+};
+
+/* 15 POST Admin Add Institution page. */
+exports.post_amdin_add_inst =  function(req, res, next) {
+    console.log(req.body);
+    var inst = req.body;
+    delete inst.password2;
+    var newInst = JSON.stringify(req.body);
+    console.log('New Inst: ' + newInst);
+    options.path = '/inst/add';
+    options.method = 'POST';
+    options.headers = {"Content-Type": "application/json"};
+    var request = http.request(options, function(resp) {
+        //console.log('STATUS: ' + res.statusCode);
+        //console.log('HEADERS: ' + JSON.stringify(res.headers));
+        //console.log(JSON.stringify(res.data));
+        resp.setEncoding('utf8');
+        resp.on('data', function (chunk) {
+            console.log('Response BODY: ' + chunk);
+            res.redirect('/admin/manage/inst');
+        });
+    });
+
+    request.write(JSON.stringify(inst));
+
+
 };
