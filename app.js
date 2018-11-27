@@ -42,6 +42,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(function(req, res, next){
     res.locals.isAuthenticated = req.isAuthenticated();
     console.log("AUTH:" +res.locals.isAuthenticated );
+    res.locals.session = req.session;
     if(res.locals.isAuthenticated === false){
         //console.log(next);
         //res.redirect('/');

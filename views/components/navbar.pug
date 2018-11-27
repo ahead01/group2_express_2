@@ -11,5 +11,19 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-dark.fixed-top
             li.nav-item
                 a.nav-link(href='/admin/login') Admin
         form.form-inline.my-2.my-lg-0
-            input.form-control.mr-sm-2(type='text', placeholder='Search')
-            button.btn.btn-secondary.my-2.my-sm-0(type='submit') Search
+            if isAuthenticated
+                if isAuthenticated === true
+                    if session
+                        if session.passport
+                            if session.passport.user
+                                if session.passport.user.type
+                                    if session.passport.user.type === 'inst'
+                                        .h4 Logged in as: Institution User
+                                    if session.passport.user.type === 'student'
+                                        .h4 Logged in as: Student User
+                                    if session.passport.user.type === 'admin'
+                                        .h4 Logged in as: Admin User
+            else
+                .h4 Not Logged In
+            //input.form-control.mr-sm-2(type='text', placeholder='Search')
+            //button.btn.btn-secondary.my-2.my-sm-0(type='submit') Search

@@ -24,16 +24,16 @@ router.post('/inst/sign-in',  passport.authenticate('local',{failureRedirect: '/
 router.post('/inst/sign-up',instController.inst_sign_up);
 
 /* 14 GET Institution Register Success page. */
-router.get('/inst/login/reg', instController.inst_login_reg);
+router.get('/inst/login/reg', passportConfig.authenticationInstMiddleware(),instController.inst_login_reg);
 
 /* 9 GET Institution Edit page. */
-router.get('/inst/edit', passportConfig.authenticationMiddleware(), instController.inst_edit);
+router.get('/inst/edit', passportConfig.authenticationInstMiddleware(), instController.inst_edit);
 
 /* 7 GET Instutution Home page. */
-router.get('/inst/home', instController.inst);
+router.get('/inst/home', passportConfig.authenticationInstMiddleware(), instController.inst);
 
 /* 5 GET Institution Classes */
-router.get('inst/home/class', instController.inst_classes);
+router.get('inst/home/class', passportConfig.authenticationInstMiddleware(), instController.inst_classes);
 /* ******************** END INSTITUTION ******************** */
 
 
@@ -48,13 +48,13 @@ router.post('/student/sign-in', studentController.student_sign_in);
 router.post('/student/sign-up', studentController.student_sign_up);
 
 /* 3 GET Student Search page. */
-router.get('/student/search', studentController.student_search);
+router.get('/student/search', passportConfig.authenticationStudentMiddleware(), studentController.student_search);
 
 /* 4 GET Student Keyword Search Results page. */
-router.get('/student/search/keyword', studentController.student_search_keyword);
+router.get('/student/search/keyword', passportConfig.authenticationStudentMiddleware(), studentController.student_search_keyword);
 
 /* 6 GET Student Location Search Results page. */
-router.get('/student/search/location', studentController.student_search_location);
+router.get('/student/search/location', passportConfig.authenticationStudentMiddleware(), studentController.student_search_location);
 /* ******************** END STUDENT ******************** */
 
 
