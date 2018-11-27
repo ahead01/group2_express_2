@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+var passportConfig = require('../bin/passport-config');
+var passport = require('passport');
 
 
 /* Controllers */
@@ -7,14 +9,6 @@ var instController = require('../controllers/inst-cont');
 var adminController = require('../controllers/admin-cont');
 var studentController = require('../controllers/student-cont');
 
-var institutions = {"list":[]};
-
-var courses = {"list":[
-        {"name":"Course Number 1","desc":"1Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.","seats":5,"inst":"Public Institution 1"},
-        {"name":"Course Number 2","desc":"1Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.","seats":10,"inst":"Public Institution 1"},
-        {"name":"Course Number 3","desc":"1Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.","seats":20,"inst":"Public Institution 3"},
-        {"name":"Course Number 4","desc":"1Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.","seats":24,"inst":"Public Institution 4"}
-    ]};
 
 /* 1 GET home page. */
 router.get('/', function(req, res, next) {
@@ -25,11 +19,15 @@ router.get('/', function(req, res, next) {
 /* 8 GET Institution Login / Register page. */
 router.get('/inst/login', instController.inst_login);
 
+router.post('/inst/sign-in',  passport.authenticate('local',{failureRedirect: '/inst/login', successRedirect: '/inst/edit'}), instController.inst_edit);
+
+router.post('/inst/sign-up',instController.inst_sign_up);
+
 /* 14 GET Institution Register Success page. */
 router.get('/inst/login/reg', instController.inst_login_reg);
 
 /* 9 GET Institution Edit page. */
-router.get('/inst/edit', instController.inst_edit);
+router.get('/inst/edit', passportConfig.authenticationMiddleware(), instController.inst_edit);
 
 /* 7 GET Instutution Home page. */
 router.get('/inst/home', instController.inst);
@@ -42,6 +40,12 @@ router.get('inst/home/class', instController.inst_classes);
 /* ******************** START STUDENT ******************** */
 /* 2 GET Student Login / Register page. */
 router.get('/student/login', studentController.student_login);
+
+/* 2 POST Student sign in / Register page. */
+router.post('/student/sign-in', studentController.student_sign_in);
+
+/* 2 POST Student sign up / Register page. */
+router.post('/student/sign-up', studentController.student_sign_up);
 
 /* 3 GET Student Search page. */
 router.get('/student/search', studentController.student_search);

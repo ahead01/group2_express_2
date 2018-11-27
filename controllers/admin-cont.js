@@ -1,5 +1,6 @@
 var http = require('http');
 var config = require('../bin/config');
+var instModel = require('../models/inst-model');
 
 var options = {
     host: config.servicehost,
@@ -58,20 +59,9 @@ exports.admin_manage =  function(req, res, next) {
 
 /* 13 GET Admin Manage Institution page. */
 exports.admin_manage_inst =  function(req, res, next) {
-    options.path = '/inst/getall';
-    http.request(options, function(resp) {
-        //console.log('STATUS: ' + res.statusCode);
-        //console.log('HEADERS: ' + JSON.stringify(res.headers));
-        //console.log(JSON.stringify(res.data));
-        resp.setEncoding('utf8');
-        resp.on('data', function (chunk) {
-            //console.log('BODY: ' + chunk);
-            var institutions = {'list':[]};
-            institutions.list = JSON.parse(chunk);
-            //console.log(institutions);
-            res.render('admin/adminManageInst', { title: 'Admin Manage Institution Requests', results: institutions });
-        });
-    }).end();
+ instModel.getAllInstitutions(function(result){
+     res.render('admin/adminManageInst', { title: 'Admin Manage Institution Requests', results: result });
+ });
 
 };
 
@@ -87,21 +77,10 @@ exports.post_amdin_add_inst =  function(req, res, next) {
     delete inst.password2;
     var newInst = JSON.stringify(req.body);
     console.log('New Inst: ' + newInst);
-    options.path = '/inst/add';
-    options.method = 'POST';
-    options.headers = {"Content-Type": "application/json"};
-    var request = http.request(options, function(resp) {
-        //console.log('STATUS: ' + res.statusCode);
-        //console.log('HEADERS: ' + JSON.stringify(res.headers));
-        //console.log(JSON.stringify(res.data));
-        resp.setEncoding('utf8');
-        resp.on('data', function (chunk) {
-            console.log('Response BODY: ' + chunk);
-            res.redirect('/admin/manage/inst');
-        });
+    instModel.instAddOne(inst,function(res){
+        console.log("post_admin_add_inst: " + res);
     });
-
-    request.write(JSON.stringify(inst));
+    res.redirect('/admin/manage/inst');
 
 
 };

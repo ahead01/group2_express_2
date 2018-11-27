@@ -5,30 +5,33 @@ block content
         .h1 #{title}
         .container.m-0
             .table
-                .row.m-3.form
+                form#studentSignInForm.row.m-3.form(action='/student/sign-in', method='post')
                     .col-lg.text-center
                         .h2 Current Users:
                     .col-lg.text-center
                         .form-group.row
                             .col-sm-10
-                                input#inputUID1.form-control(type='email', placeholder='Email')
+                                input#inputUID1.form-control(type='text', placeholder='Usernmae', name='studentUserName')
                         .form-group.row
                             .col-sm-10
-                                input#inputPassword1.form-control(type='password', placeholder='Password')
+                                input#inputPassword1.form-control(type='password', placeholder='Password', name='studentPWD')
                     .col-lg.text-center
-                        a.btn.btn-primary.btn-lg(href='/student/search') Login
-                .row.m-3.form
+                        button.btn.btn-primary.btn-lg(type='submit') Login
+                form#studentSignUpForm.row.m-3.form(action='/student/sign-up', method='post')
                     .col-lg.text-center
                         .h2 New Users:
                     .col-lg.text-center
                         .form-group.row
                             .col-sm-10
-                                input#inputUID2.form-control(type='email', placeholder='Email')
+                                input#inputUID2.form-control(type='text', placeholder='Username', name='studentUserName')
                         .form-group.row
                             .col-sm-10
-                                input#inputPassword2.form-control(type='password', placeholder='Password')
+                                input#inputEmail2.form-control(type='email', placeholder='Email', name='studentEmail')
                         .form-group.row
                             .col-sm-10
-                                input#inputPassword3.form-control(type='password', placeholder='Confirm Password')
+                                input#inputPassword2.form-control(type='password', placeholder='Password', name='studentPWD')
+                        .form-group.row
+                            .col-sm-10
+                                input#inputPassword3.form-control(type='password', placeholder='Confirm Password', name='password2')
                     .col-lg.text-center
-                        a.btn.btn-primary.btn-lg(href='/student/search') Register
+                        button.btn.btn-primary.btn-lg(type='submit') Register

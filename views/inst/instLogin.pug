@@ -5,44 +5,44 @@ block content
         .h1 #{title}
         .container.m-0
             .table
-                .row.m-3.form
+                form.row.m-3.form(action='/inst/sign-in', method='post')
                     .col-lg
                         .h3 Current Institutions:
                     .col-lg.text-center
                         .form-group.row
                             .col-sm-10
-                                input#inputUID1.form-control(type='text', placeholder='Name')
+                                input#inputUID1.form-control(type='text', placeholder='Name', name='username')
                         .form-group.row
                             .col-sm-10
-                                input#inputPassword1.form-control(type='password', placeholder='Password')
+                                input#inputPassword1.form-control(type='password', placeholder='Password', name='password')
                     .col-lg
-                        a.btn.btn-primary.btn-lg(href='/inst/edit') Login
+                        button.btn.btn-primary.btn-lg(type='submit') Login
                     .col-lg.text-center
                 .row.m-9
-                .row.m-3.form
+                form.row.m-3.form(action='/inst/sign-up', method='post')
                     .col-lg
                         .h3 New Institutions:
                     .col-lg
                         .form-group.row
                             .col-sm-10
-                                input#inputUID2.form-control(type='email', placeholder='Name')
+                                input#inputUID2.form-control(type='text', placeholder='Name', name = 'institutionName')
                         .form-group.row
                             .col-sm-10
-                                input#inputPassword2.form-control(type='password', placeholder='Password')
+                                input#inputPassword2.form-control(type='password', placeholder='Password', name = 'institutionPWD')
                         .form-group.row
                             .col-sm-10
-                                input#inputPassword3.form-control(type='password', placeholder='Confirm Password')
+                                input#inputPassword3.form-control(type='password', placeholder='Confirm Password', name = 'password2')
                     .col-lg.text-center
                         .form-group.row
                            .col-md
-                               input#inputAddress.form-control(type='password', placeholder='Address')
+                               input#inputAddress.form-control(type='password', placeholder='Address', name = 'institutionStreetAddr')
                         .form-group.row
                            .col-sm-8
-                               input#inputZip.form-control(type='password', placeholder='Zipcode')
+                               input#inputZip.form-control(type='password', placeholder='Zipcode', name = 'institutionZipCD')
                         .form-group.row
                            .col-sm
-                               input#inputCity.form-control(type='password', placeholder='City')
+                               input#inputCity.form-control(type='password', placeholder='City', name = 'institutionCity')
                            .col-sm
-                               input#inputState.form-control(type='password', placeholder='State')
+                               input#inputState.form-control(type='password', placeholder='State', name = 'institutionStateCD')
                     .col-lg.text-center
-                        a.btn.btn-primary.btn-lg(href='/inst/login/reg') Request To Join
+                        button.btn.btn-primary.btn-lg(type='submit') Request To Join
