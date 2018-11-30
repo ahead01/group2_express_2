@@ -1,3 +1,4 @@
+var adminModel = require( "../models/admin-model");
 
 var http = require('http');
 var config = require('../bin/config');
@@ -108,4 +109,32 @@ exports.admin_approve_inst = function(req, res, next) {
             res.redirect('/admin/manage/inst');
         });
     }).end();
+};
+
+exports.admin_sign_up = function(req,res,next){
+    req.type = 'admin';
+    console.log('Signing up as a ' + req.type);
+    console.log(req.body);
+    adminModel.adminCheck(req, function(response){
+        if(response === true){
+
+
+        }
+        adminModel.adminSave(req.body, function(response){
+            if(response === true){
+                req.logIn({username: req.body.adminUsername , password: req.body.adminPWD , type:req.type},function(err){
+                    if(err){
+                        console.log("Error During Login");
+                        console.log(err.message);
+                    }
+                    console.log(req.user);
+                    console.log(req.isAuthenticated());
+                    res.locals.isAuthenticated = req.isAuthenticated();
+                    res.redirect('/admin/manage');
+                })
+            }
+        });
+    });
+
+
 };

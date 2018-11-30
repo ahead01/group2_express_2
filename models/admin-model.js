@@ -45,7 +45,7 @@ exports.adminSave = function(user,callback){
 
     bcrypt.genSalt(2, function(err, salt) {
         if (err) { return next(err); }
-        bcrypt.hash(user.password, salt, null, function(err, hash) {
+        bcrypt.hash(user.adminPWD, salt, null, function(err, hash) {
             if (err) {
                 return next(err);
             }
@@ -62,6 +62,8 @@ exports.adminFindByUserName = function(username, callback) {
     options.path = '/admin/getone/user?adminUserName=' + username;
     options.method = 'GET';
     options.headers = {"Content-Type": "application/json"};
+
+    console.log(options.path);
     http.request(options, function(resp) {
         //console.log('STATUS: ' + res.statusCode);
         //console.log('HEADERS: ' + JSON.stringify(res.headers));

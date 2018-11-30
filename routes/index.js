@@ -48,7 +48,7 @@ router.post('/inst/update/email', instController.inst_update_email);
 router.get('/student/login', studentController.student_login);
 
 /* 2 POST Student sign in / Register page. */
-router.post('/student/sign-in', studentController.student_sign_in);
+router.post('/student/sign-in',  passport.authenticate('local',{failureRedirect: '/student/login', successRedirect: '/student/search'}), studentController.student_sign_in);
 
 /* 2 POST Student sign up / Register page. */
 router.post('/student/sign-up', studentController.student_sign_up);
@@ -66,7 +66,11 @@ router.get('/student/search/location', passportConfig.authenticationStudentMiddl
 
 /* ******************** START ADMIN ******************** */
 /* 10 GET Admin Login page. */
-router.get('/admin/login', adminController.admin_login);
+router.get('/admin/login',  adminController.admin_login);
+
+router.post('/admin/sign-in', passport.authenticate('local',{failureRedirect: '/admin/login', successRedirect: '/admin/manage'}));
+
+router.post('/admin/sign-up',adminController.admin_sign_up);
 
 /* 11 GET Admin Search page. */
 router.get('/admin/search', adminController.admin_search);

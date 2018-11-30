@@ -50,7 +50,7 @@ exports.student_search_location = function(req, res, next) {
 
 
 exports.student_sign_up = function(req, res, next) {
-    req.type = 'student';
+       req.type = 'student';
     console.log('Signing up as a ' + req.type);
     console.log(req.body);
     studentModel.studentCheck(req, function(response){
@@ -72,8 +72,6 @@ exports.student_sign_up = function(req, res, next) {
             }
         });
     });
-
-
 };
 
 exports.student_sign_in = function(req, res, next) {

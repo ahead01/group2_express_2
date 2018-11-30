@@ -44,9 +44,12 @@ exports.studentSave = function(user,callback){
         });
     });
 
+    console.log(user.password);
+    console.log("pwd");
+
     bcrypt.genSalt(2, function(err, salt) {
         if (err) { return next(err); }
-        bcrypt.hash(user.password, salt, null, function(err, hash) {
+        bcrypt.hash(user.studentPWD, salt, null, function(err, hash) {
             if (err) {
                 return next(err);
             }
@@ -85,9 +88,9 @@ exports.isStudentPasswordValid  = function(rawPassword,hash, callback) {
     //console.log(rawPassword);
     //console.log(hash);
     bcrypt.compare(rawPassword, hash, function(err, same) {
-        //console.log('err - same');
-        //console.log(err);
-        //console.log(same);
+        console.log('err - same');
+        console.log(err);
+        console.log(same);
         if (err) {
             return(callback(err));
         }

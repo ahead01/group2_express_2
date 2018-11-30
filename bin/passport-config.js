@@ -125,13 +125,13 @@ exports.authenticationMiddlewareOpposite = function() {
 
 passport.use(new LocalStrategy({usernameField: 'username',passwordField: 'password', passReqToCallback: true },
     function(req, username, password, done) {
-    /*
+    /**/
     console.log(req.body);
     console.log(req.url);
     console.log("username: " +username);
     console.log("password: " +password);
     console.log("done: " +done);
-    */
+
     var url = req.url;
 
     if(url === '/student/sign-in'){
@@ -144,6 +144,9 @@ passport.use(new LocalStrategy({usernameField: 'username',passwordField: 'passwo
             student = JSON.parse(student);
             console.log(student.studentPWD);
             studentModel.isStudentPasswordValid(password, student.studentPWD, function(err,result){
+                console.log("HERE");
+                console.log(err);
+                console.log(result);
                 if (err){
                     return done(null, false, { message: 'Incorrect password.' });
                 }
@@ -153,11 +156,11 @@ passport.use(new LocalStrategy({usernameField: 'username',passwordField: 'passwo
                 student.password = student.studentPWD;
                 student.username = student.studentID;
                 student.type = studentVar;
-                /*console.log('success student');
+                console.log('success student');
                 console.log(err);
                 console.log(result);
                 console.log(student);
-                */
+
                 return done(err, student);
             });
 
@@ -209,7 +212,7 @@ passport.use(new LocalStrategy({usernameField: 'username',passwordField: 'passwo
                     return done(null, false, { message: 'Incorrect password.' });
                 }
                 admin.password = admin.adminPWD;
-                admin.username = admin.adminID;
+                admin.username = admin.adminUsername;
                 admin.type = adminVar;
                 console.log('success admin');
                 console.log(err);
@@ -235,7 +238,7 @@ passport.serializeUser(function(req, user,done) {
 
 
 passport.deserializeUser(function( user, done) {
-    //console.log(user);
+    console.log(user);
     //done(user);
     if(user.type === 'student'){
         studentModel.studentFindByUserName(user.username, function(err, student){
