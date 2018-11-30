@@ -3,3 +3,15 @@ extends ../layout
 block content
     .jumbotron
         .h1 #{title}
+        .container
+            .table
+                each val, index in results.list
+                    .row
+                        .col-lg
+                            .card.text-white.bg-primary.mb-3
+                                .card-header #{val.className}
+                                    a.close Institution: #{val.ClassInstitutionID}
+                                .card-body Course Description: #{val.classDesc}
+                                .card-footer
+                                    .card-text Seats: #{val.classSeats}
+                                    button.close Register

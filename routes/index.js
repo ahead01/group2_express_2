@@ -33,7 +33,13 @@ router.get('/inst/edit', passportConfig.authenticationInstMiddleware(), instCont
 router.get('/inst/home', passportConfig.authenticationInstMiddleware(), instController.inst);
 
 /* 5 GET Institution Classes */
-router.get('inst/home/class', passportConfig.authenticationInstMiddleware(), instController.inst_classes);
+router.get('/inst/home/class', passportConfig.authenticationInstMiddleware(), instController.inst_classes);
+
+/* Updates */
+router.post('/inst/update/desc',instController.inst_update_desc );
+
+router.post('/inst/update/email', instController.inst_update_email);
+
 /* ******************** END INSTITUTION ******************** */
 
 
@@ -70,6 +76,8 @@ router.get('/admin/search/result', adminController.admin_search_results);
 
 /* 12 GET Admin Manage page. ( For Approving and Denying Inst Registration Requests */
 router.get('/admin/manage', adminController.admin_manage);
+
+router.post('/admin/approve/inst', adminController.admin_approve_inst );
 
 /* 13 GET Admin Manage Institution page. */
 router.get('/admin/manage/inst', adminController.admin_manage_inst);

@@ -1,3 +1,4 @@
+
 const bcrypt = require('bcrypt-nodejs');
 const crypto = require('crypto');
 var config = require('../bin/config');
@@ -11,6 +12,8 @@ var options = {
 };
 
 exports.instAddOne = function(user, callback){
+    console.log("USER INSTADDONE");
+    console.log(user);
     options.path = '/inst/add';
     options.method = 'POST';
     options.headers = {"Content-Type": "application/json"};
@@ -24,6 +27,7 @@ exports.instAddOne = function(user, callback){
             return callback(chunk);
         });
     });
+
 
     bcrypt.genSalt(2, function(err, salt) {
         if (err) { return next(err); }
@@ -92,6 +96,23 @@ exports.instFindByUserName = function(username, callback) {
         resp.on('data', function (chunk) {
             //console.log('BODY: ' + chunk);
                 return callback(null, chunk);
+        });
+    }).end();
+};
+
+
+exports.getAllInstitutionsUnapproved = function(callback) {
+    options.path = '/inst/getunapproved';
+    http.request(options, function(resp) {
+        //console.log('STATUS: ' + res.statusCode);
+        //console.log('HEADERS: ' + JSON.stringify(res.headers));
+        //console.log(JSON.stringify(res.data));
+        resp.setEncoding('utf8');
+        resp.on('data', function (chunk) {
+            //console.log('BODY: ' + chunk);
+            var institutions = {'list':[]};
+            institutions.list = JSON.parse(chunk);
+            return(callback(institutions));
         });
     }).end();
 };

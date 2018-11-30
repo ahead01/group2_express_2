@@ -2,5 +2,29 @@ extends ../layout
 
 block content
     .jumbotron
-        .h1 #{title}
-            #{session}
+        .h1 #{title} for #{session.passport.user.institutionName}
+        .container
+            .table
+                .row.m-2
+                    form.col.m-2.card.bg-secondary.text-white(action='/inst/update/video', method='post')
+                        .card-header Videos
+                            button#videoSave.close(type='submit', name='institutionID', value=session.passport.user.institutionID) Save
+                        .card-body
+                            input.form-control(value=session.passport.user.institutionDesc, name='institutionDesc')
+
+                    form.col.m-2.card.bg-secondary.text-white(action='/inst/update/desc', method='post')
+                        .card-header Institution Description
+                            button#descSave.close(type='submit', name='institutionID', value=session.passport.user.institutionID) Save
+                        .card-body
+                            input.form-control(value=session.passport.user.institutionDesc, name='institutionDesc')
+                .row.m-2
+                .row.m-2
+                    form.col.m-2.card.bg-secondary.text-white(action='/inst/update/email', method='post')
+                        .card-header Contact Info
+                            button#emailSave.close(type='submit', name='institutionID', value=session.passport.user.institutionID) Save
+                        .card-body
+                            input.form-control(value=session.passport.user.institutionEmail, name ='institutionEmail')
+                    .col.m-2.card.bg-secondary.text-white
+                        .card-header Manage Courses
+                        .card-body
+                            a.btn.btn-lg.btn-primary(href='/inst/home/class') View Courses

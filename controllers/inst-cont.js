@@ -1,3 +1,5 @@
+
+
 var http = require('http');
 var config = require('../bin/config');
 var instModel = require('../models/inst-model');
@@ -30,6 +32,7 @@ exports.inst_login_reg = function(req, res, next) {
 
 /* 9 GET Institution Edit page. */
 exports.inst_edit =  function(req, res, next) {
+    console.log(req.session.passport.user);
     res.render('inst/instEdit', { title: 'Institution Edit' });
 };
 
@@ -40,7 +43,27 @@ exports.inst =  function(req, res, next) {
 
 /* 5 GET Institution Classes */
 exports.inst_classes =  function (req, res, next){
-    res.render('inst/instClass', {title: 'Institution Classes'});
+    options.path = '/class/getall';
+    options.method = 'GET';
+    http.request(options, function(resp) {
+        //console.log('STATUS: ' + res.statusCode);
+        //console.log('HEADERS: ' + JSON.stringify(res.headers));
+        //console.log(JSON.stringify(res.data));
+        resp.setEncoding('utf8');
+        var data = "";
+        resp.on('data', function (chunk) {
+            //console.log('BODY: ' + chunk);
+            data = data + chunk;
+
+        }).on('end', function() {
+            var courses = {'list':[]};
+            courses.list = JSON.parse(data);
+            console.log(courses);
+            res.render('inst/instClass', {title: 'Institution Classes', results: courses });
+        })
+    }).end();
+
+
 };
 
 exports.inst_sign_in = function(req, res, next){
@@ -63,6 +86,7 @@ exports.inst_sign_in = function(req, res, next){
 };
 exports.inst_sign_up = function(req, res, next){
     req.type = 'inst';
+    req.body.institutionApproved = 0;
     console.log('Signing up as a ' + req.type);
     console.log(req.body);
     instModel.instCheck(req, function(response){
@@ -71,7 +95,7 @@ exports.inst_sign_up = function(req, res, next){
         }
         instModel.instAddOne(req.body, function(response){
             if(response === 'Saved'){
-                req.logIn({username: req.body.instUserName , password: req.body.instPWD , type:req.type},function(err){
+                req.logIn({username: req.body.instUserName , password: req.body.instPWD , type:req.type, approved: req.body.approved},function(err){
                     if(err){
                         console.log("Error During Login");
                         console.log(err.message);
@@ -84,8 +108,54 @@ exports.inst_sign_up = function(req, res, next){
             }
         });
     });
+};
 
+exports.inst_update_desc = function(req, res, next){
+    options.path = '/inst/update/desc?institutionID=' +req.body.institutionID + '&newVal=' + req.body.institutionDesc;
+    options.path = encodeURI(options.path);
+    options.method = 'GET';
 
+    console.log("URL");
+    console.log(options.path);
+    var data = "";
+    http.request(options, function(resp) {
+        //console.log('STATUS: ' + res.statusCode);
+        //console.log('HEADERS: ' + JSON.stringify(res.headers));
+        //console.log(JSON.stringify(res.data));
+        resp.setEncoding('utf8');
+        resp.on('data', function (chunk) {
+            //console.log('BODY: ' + chunk);
+            data = data + chunk;
+        }).on('end', function() {
+            console.log(data);
+            console.log("DATA");
 
+            res.redirect('/inst/edit');
+        })
+    }).end();
+};
 
+exports.inst_update_email = function(req, res, next){
+    options.path = '/inst/update/email?institutionID=' +req.body.institutionID + '&newVal=' + req.body.institutionEmail ;
+    options.path = encodeURI(options.path);
+    options.method = 'GET';
+
+    console.log("URL");
+    console.log(options.path);
+    var data = "";
+    http.request(options, function(resp) {
+        //console.log('STATUS: ' + res.statusCode);
+        //console.log('HEADERS: ' + JSON.stringify(res.headers));
+        //console.log(JSON.stringify(res.data));
+        resp.setEncoding('utf8');
+        resp.on('data', function (chunk) {
+            //console.log('BODY: ' + chunk);
+            data = data + chunk;
+        }).on('end', function() {
+            console.log(data);
+            console.log("DATA");
+
+            res.redirect('/inst/edit');
+        })
+    }).end();
 };

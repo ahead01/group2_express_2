@@ -6,18 +6,20 @@ block content
         .container
             .table
                 each val, index in results.list
-                    .row
+
+                    form.row(action='/admin/approve/inst', method='post')
                         .col-sm-2
                             .h3 Request: #{index + 1}
                         .col-lg
                             .card
-                                .card-header #{val.name}
-                                .card-body #{val.desc}
-                                .card-footer #{val.address}
+                                .card-header #{val.institutionName}
+                                .card-body #{val.institutionDesc}
+                                .card-footer #{val.institutionStreetAddr} #{val.institutionCity} , #{val.institutionStateCD} #{val.institutionZipCD}
                         .col-lg
                             .row
                                 .col-sm.text-center
-                                    a.btn.btn-secondary.btn-lg Approve
+                                    button.btn.btn-secondary.btn-lg(type='submit', value=1, name='submit') Approve
                                 .col-sm
-                                    a.btn.btn-danger.btn-lg Deny
+                                    button.btn.btn-danger.btn-lg(type='submit', value=2, name='submit') Deny
+                                input.invisible(type='text', name='id', value=val.institutionID)
                     .row.m-2

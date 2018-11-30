@@ -22,18 +22,23 @@ exports.student_search = function(req, res, next) {
 /* 4 GET Student Keyword Search Results page. */
 exports.student_search_keyword = function(req, res, next) {
     options.path = '/class/getall';
+    options.method = 'GET';
     http.request(options, function(resp) {
         //console.log('STATUS: ' + res.statusCode);
         //console.log('HEADERS: ' + JSON.stringify(res.headers));
         //console.log(JSON.stringify(res.data));
         resp.setEncoding('utf8');
+        var data = "";
         resp.on('data', function (chunk) {
             //console.log('BODY: ' + chunk);
+            data = data + chunk;
+
+        }).on('end', function() {
             var courses = {'list':[]};
-            courses.list = JSON.parse(chunk);
+            courses.list = JSON.parse(data);
             console.log(courses);
             res.render('student/sdntSearchKey', { title: 'Student Keyword Search Results', results: courses });
-        });
+        })
     }).end();
 
 };
