@@ -10,3 +10,15 @@ a {
 
 }
 
+.cali {
+    /*background-image: url(../images/California-2.JPG);
+     background-size: 1200px;
+    /*transform: rotate(180deg);
+    resize: both;
+*/
+}
+
+.no-rot {
+    /*transform: rotate(180deg);*/
+
+}

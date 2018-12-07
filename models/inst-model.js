@@ -43,16 +43,20 @@ exports.instAddOne = function(user, callback){
 };
 
 exports.getAllInstitutions = function(callback) {
+    options.method = 'GET';
     options.path = '/inst/getall';
     http.request(options, function(resp) {
         //console.log('STATUS: ' + res.statusCode);
         //console.log('HEADERS: ' + JSON.stringify(res.headers));
         //console.log(JSON.stringify(res.data));
         resp.setEncoding('utf8');
+        var data = "";
         resp.on('data', function (chunk) {
             //console.log('BODY: ' + chunk);
+            data = data + chunk;
+        }).on('end', function(){
             var institutions = {'list':[]};
-            institutions.list = JSON.parse(chunk);
+            institutions.list = JSON.parse(data);
             return(callback(institutions));
         });
     }).end();
@@ -62,13 +66,10 @@ exports.getFuzzySearchInst = function(srchstr, callback){
     return callback(null);
 };
 
-
-
 exports.instCheck = function (req,callback){
-    console.log(req.body);
+    //console.log(req.body);
     options.path = '/inst/checkone/user?institutionUserName=' + req.body.username;
     options.method = 'GET';
-    options.headers = {"Content-Type": "application/json"};
     http.request(options, function(resp) {
         //console.log('STATUS: ' + res.statusCode);
         //console.log('HEADERS: ' + JSON.stringify(res.headers));
@@ -81,8 +82,6 @@ exports.instCheck = function (req,callback){
     }).end();
 };
 
-
-
 exports.instFindByUserName = function(username, callback) {
     var err = null;
     options.path = '/inst/getone/user?institutionUserName=' + username;
@@ -93,25 +92,32 @@ exports.instFindByUserName = function(username, callback) {
         //console.log('HEADERS: ' + JSON.stringify(res.headers));
         //console.log(JSON.stringify(res.data));
         resp.setEncoding('utf8');
+        var data = "";
         resp.on('data', function (chunk) {
             //console.log('BODY: ' + chunk);
-                return callback(null, chunk);
+            data = data + chunk;
+        }).on('end',function(){
+            data = JSON.parse(data);
+            return callback(null, data);
         });
     }).end();
 };
 
-
 exports.getAllInstitutionsUnapproved = function(callback) {
     options.path = '/inst/getunapproved';
+    options.method = 'GET';
     http.request(options, function(resp) {
         //console.log('STATUS: ' + res.statusCode);
         //console.log('HEADERS: ' + JSON.stringify(res.headers));
         //console.log(JSON.stringify(res.data));
         resp.setEncoding('utf8');
+        var data = "";
         resp.on('data', function (chunk) {
             //console.log('BODY: ' + chunk);
+            data = data + chunk;
+        }).on('end', function(){
             var institutions = {'list':[]};
-            institutions.list = JSON.parse(chunk);
+            institutions.list = JSON.parse(data);
             return(callback(institutions));
         });
     }).end();

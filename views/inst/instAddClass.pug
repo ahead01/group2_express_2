@@ -1,0 +1,14 @@
+extends ../layout
+
+block content
+    .jumbotron
+        .h1 #{title}
+        .p-1 Please fill out the following form in order to add a new class.
+        form.text-white(action='/inst/add/class', method='post')
+            input.form-control(placeholder='Class Name', name='className')
+            input.form-control(placeholder='Class Description', name='classDesc')
+            input.form-control(placeholder='Number of Seats', name ='classSeats')
+            button.btn-primary(type='submit') Save
+
+
+

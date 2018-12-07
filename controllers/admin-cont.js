@@ -21,6 +21,7 @@ exports.admin_login = function(req, res, next) {
 exports.admin_search = function(req, res, next) {
     options.path = '/inst/getall';
     options.method = 'GET';
+    var data = "";
     http.request(options, function(resp) {
         //console.log('STATUS: ' + res.statusCode);
         //console.log('HEADERS: ' + JSON.stringify(res.headers));
@@ -28,11 +29,13 @@ exports.admin_search = function(req, res, next) {
         resp.setEncoding('utf8');
         resp.on('data', function (chunk) {
             //console.log('BODY: ' + chunk);
+            data = data + chunk;
+        }).on('end', function(){
             var institutions = {'list':[]};
-            institutions.list = JSON.parse(chunk);
+            institutions.list = JSON.parse(data);
             //console.log(institutions);
             res.render('admin/adminSearch', { title: 'Admin Search', results: institutions });
-        });
+        })
     }).end();
 };
 
@@ -55,8 +58,8 @@ exports.admin_manage =  function(req, res, next) {
             //console.log('BODY: ' + chunk);
             data = data + chunk;
         }).on('end', function() {
-            console.log(data);
-            console.log("DATA");
+            //console.log(data);
+           // console.log("DATA");
             var institutions = {'list':[]};
             institutions.list = JSON.parse(data);
             console.log(institutions);
@@ -81,7 +84,7 @@ exports.get_amdin_add_inst =  function(req, res, next) {
 
 /* 15 POST Admin Add Institution page. */
 exports.post_amdin_add_inst =  function(req, res, next) {
-    console.log(req.body);
+    //console.log(req.body);
     req.body.institutionApproved = 1;
     var inst = req.body;
     delete inst.password2;
@@ -99,15 +102,20 @@ exports.admin_approve_inst = function(req, res, next) {
     console.log(req.body);
     options.path = '/admin/approveInst?approval=' + req.body.submit +'&id=' + req.body.id;
     options.method = 'GET';
+    var data = "";
     http.request(options, function(resp) {
         //console.log('STATUS: ' + res.statusCode);
         //console.log('HEADERS: ' + JSON.stringify(res.headers));
         //console.log(JSON.stringify(res.data));
         resp.setEncoding('utf8');
         resp.on('data', function (chunk) {
+            //console.log('Updated  ' + chunk + ' records');
+            //res.redirect('/admin/manage/inst');
+            data = data + chunk;
+        }).on('end', function() {
             console.log('Updated  ' + chunk + ' records');
             res.redirect('/admin/manage/inst');
-        });
+        })
     }).end();
 };
 

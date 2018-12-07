@@ -20,13 +20,15 @@ exports.studentCheck = function (req,callback){
         //console.log('HEADERS: ' + JSON.stringify(res.headers));
         //console.log(JSON.stringify(res.data));
         resp.setEncoding('utf8');
+        var data = "";
         resp.on('data', function (chunk) {
-            console.log('BODY: ' + chunk);
-            return callback(chunk === 'true');
-        });
+            data = data + chunk;
+        }).on('end', function(){
+            console.log('BODY: ' + data);
+            return callback(data === 'true');
+        })
     }).end();
 };
-
 
 exports.studentSave = function(user,callback){
     options.path = '/student/add';
@@ -70,11 +72,15 @@ exports.studentFindByUserName = function(username, callback) {
         //console.log('STATUS: ' + res.statusCode);
         //console.log('HEADERS: ' + JSON.stringify(res.headers));
         //console.log(JSON.stringify(res.data));
+        var data = "";
         resp.setEncoding('utf8');
         resp.on('data', function (chunk) {
             //console.log('BODY: ' + chunk);
-            return callback(err, chunk);
-        });
+            data = data + chunk;
+        }).on('end',function(){
+            data = JSON.parse(data);
+            return callback(err, data);
+        })
     }).end();
 };
 

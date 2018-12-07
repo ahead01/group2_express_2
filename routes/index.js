@@ -12,7 +12,13 @@ var studentController = require('../controllers/student-cont');
 
 /* 1 GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Private Institution Marketing Application' });
+        req.logout();
+        console.log("Is Authenticated:");
+        console.log(req.isAuthenticated());
+        console.log(req.isAuthenticated);
+        console.log(req.isAuthenticated === true);
+
+        res.render('index', { title: 'Private Institution Marketing Application' });
 });
 
 /* ******************** START INSTITUTION ******************** */
@@ -40,6 +46,11 @@ router.post('/inst/update/desc',instController.inst_update_desc );
 
 router.post('/inst/update/email', instController.inst_update_email);
 
+/* Institution Adding a Class */
+router.get('/inst/add/class', passportConfig.authenticationInstMiddleware(), instController.get_inst_add_class);
+
+router.post('/inst/add/class', passportConfig.authenticationInstMiddleware(), instController.inst_add_class);
+
 /* ******************** END INSTITUTION ******************** */
 
 
@@ -59,8 +70,12 @@ router.get('/student/search', passportConfig.authenticationStudentMiddleware(), 
 /* 4 GET Student Keyword Search Results page. */
 router.get('/student/search/keyword', passportConfig.authenticationStudentMiddleware(), studentController.student_search_keyword);
 
+router.post('/student/search/keyword', passportConfig.authenticationStudentMiddleware(), studentController.post_student_search_keyword);
+
 /* 6 GET Student Location Search Results page. */
 router.get('/student/search/location', passportConfig.authenticationStudentMiddleware(), studentController.student_search_location);
+
+
 /* ******************** END STUDENT ******************** */
 
 

@@ -1,3 +1,4 @@
+var classModel = require('../models/class-model');
 var studentModel = require('../models/student-model');
 var config = require('../bin/config');
 var http = require('http');
@@ -17,6 +18,18 @@ exports.student_login = function(req, res, next) {
 /* 3 GET Student Search page. */
 exports.student_search = function(req, res, next) {
     res.render('student/sdntSearch', { title: 'Student Search' });
+};
+
+exports.post_student_search_keyword = function(req,res,next){
+    console.log("STUDENT SEARCH KEYWORD POST");
+    console.log(req.body.keyword);
+    classModel.findClasses(req.body.keyword, function(data){
+        var courses = {'list':[]};
+        courses.list = data;
+        console.log("Courses:");
+        console.log(courses);
+        res.render('student/sdntSearchKey', { title: 'Student Keyword Search Results', results: courses });
+    });
 };
 
 /* 4 GET Student Keyword Search Results page. */

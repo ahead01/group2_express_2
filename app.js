@@ -16,7 +16,7 @@ var sessionConfig = {
     secret: 'play hard',
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 60000 }
+    cookie: { maxAge: 600000 }
     //store : new MongoStore({url: mongoDBStore})
 };
 

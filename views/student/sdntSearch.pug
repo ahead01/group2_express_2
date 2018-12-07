@@ -5,21 +5,22 @@ block content
         .h1 #{title}
         .container.m-0
             .table
-                .row.m-3.form
+                form.row.m-3.form(action='/student/search/keyword', method='post')
                     .col-lg.text-center
                         .h3 Keyword Search:
                     .col-lg.text-center
                         .form-group.row
                             .col-sm-10
-                                input#inputKeyword.form-control(type='text', placeholder='Keyword')
+                                input#inputKeyword.form-control(type='text', placeholder='Keyword', name='keyword')
                     .col-lg
-                        a.btn.btn-primary.btn-lg(href='/student/search/keyword') Search
-                .row.m-3.form
+                        button.btn.btn-primary.btn-lg(type='submit') Search
+                form.row.m-3.form(action='/student/search/location', method='post')
                     .col-lg.text-center
                         .h3 Location Search:
+                        .h4 Need to Modify this Section!
                     .col-lg.text-center
                         .form-group.row
                             .col-sm-10
-                                input#inputLocation.form-control(type='text', placeholder='Location')
+                                input#inputLocation.form-control(type='text', placeholder='Location', name = 'location')
                     .col-lg
                         a.btn.btn-primary.btn-lg(href='/student/search/location') Search

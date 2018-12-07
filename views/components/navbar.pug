@@ -1,15 +1,80 @@
 nav.navbar.navbar-expand-lg.navbar-light.bg-dark.fixed-top
-    a.navbar-brand(href='/') Home
+    if isAuthenticated
+        if isAuthenticated === true
+            if session
+                if session.passport
+                    if session.passport.user
+                        a.navbar-brand(href='/') Sign Out
+                    else
+                        a.navbar-brand(href='/') Home
+                else
+                    a.navbar-brand(href='/') Home
+            else
+                a.navbar-brand(href='/') Home
+        else
+            a.navbar-brand(href='/') Home
+    else
+        a.navbar-brand(href='/') Home
+
     button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarColor02', aria-controls='navbarColor02', aria-expanded='false', aria-label='Toggle navigation')
         span.navbar-toggler-icon
     #navbarColor02.collapse.navbar-collapse
         ul.navbar-nav.mr-auto
-            li.nav-item
-                a.nav-link(href='/student/login') Student
-            li.nav-item
-                a.nav-link(href='/inst/login') Institution
-            li.nav-item
-                a.nav-link(href='/admin/login') Admin
+            if isAuthenticated
+                if isAuthenticated === true
+                    if session
+                        if session.passport
+                            if session.passport.user
+                                if session.passport.user.type
+                                    if session.passport.user.type === 'inst'
+                                        li.nav-item
+                                            a.nav-link(href='/inst/home') Home
+                                    if session.passport.user.type === 'student'
+                                        li.nav-item
+                                            a.nav-link(href='/student/search') Search
+                                        li.nav-item
+                                            a.nav-link(href='/student/search') Browse
+                                    if session.passport.user.type === 'admin'
+                                        li.nav-item
+                                            a.nav-link(href='/admin/manage') Home
+                            else
+                                li.nav-item
+                                    a.nav-link(href='/student/login') Student
+                                li.nav-item
+                                    a.nav-link(href='/inst/login') Institution
+                                li.nav-item
+                                    a.nav-link(href='/admin/login') Admin
+                        else
+                            li.nav-item
+                                a.nav-link(href='/student/login') Student
+                            li.nav-item
+                                a.nav-link(href='/inst/login') Institution
+                            li.nav-item
+                                a.nav-link(href='/admin/login') Admin
+                    else
+                        li.nav-item
+                            a.nav-link(href='/student/login') Student
+                        li.nav-item
+                            a.nav-link(href='/inst/login') Institution
+                        li.nav-item
+                            a.nav-link(href='/admin/login') Admin
+                else
+                    li.nav-item
+                        a.nav-link(href='/student/login') Student
+                    li.nav-item
+                        a.nav-link(href='/inst/login') Institution
+                    li.nav-item
+                        a.nav-link(href='/admin/login') Admin
+            else
+                li.nav-item
+                    a.nav-link(href='/student/login') Student
+                li.nav-item
+                    a.nav-link(href='/inst/login') Institution
+                li.nav-item
+                    a.nav-link(href='/admin/login') Admin
+
+
+
         form.form-inline.my-2.my-lg-0
             if isAuthenticated
                 if isAuthenticated === true
@@ -23,7 +88,15 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-dark.fixed-top
                                         .h4 Logged in as: Student User
                                     if session.passport.user.type === 'admin'
                                         .h4 Logged in as: Admin User
+                            else
+                                .h4 Not Logged In 5
+                        else
+                            .h4 Not Logged In 4
+                    else
+                        .h4 Not Logged In 3
+                else
+                    .h4 Not Logged In 2
             else
-                .h4 Not Logged In
+                .h4 Not Logged In 1
             //input.form-control.mr-sm-2(type='text', placeholder='Search')
             //button.btn.btn-secondary.my-2.my-sm-0(type='submit') Search

@@ -141,7 +141,7 @@ passport.use(new LocalStrategy({usernameField: 'username',passwordField: 'passwo
             if (student === 'null') {
                 return done(null, false, { message: 'Incorrect username.' });
             }
-            student = JSON.parse(student);
+            //student = JSON.parse(student);
             console.log(student.studentPWD);
             studentModel.isStudentPasswordValid(password, student.studentPWD, function(err,result){
                 console.log("HERE");
@@ -154,13 +154,14 @@ passport.use(new LocalStrategy({usernameField: 'username',passwordField: 'passwo
                     return done(null, false, { message: 'Incorrect password.' });
                 }
                 student.password = student.studentPWD;
-                student.username = student.studentID;
+                student.username = student.studentUserName;
                 student.type = studentVar;
+                /*
                 console.log('success student');
                 console.log(err);
                 console.log(result);
                 console.log(student);
-
+                */
                 return done(err, student);
             });
 
@@ -173,7 +174,7 @@ passport.use(new LocalStrategy({usernameField: 'username',passwordField: 'passwo
             if (inst === 'null') {
                 return done(null, false, { message: 'Incorrect username.' });
             }
-            inst = JSON.parse(inst);
+            //inst = JSON.parse(inst);
             //console.log(inst.institutionPWD);
             instModel.isInstPasswordValid(password, inst.institutionPWD, function(err,result){
                 if (err){
@@ -202,7 +203,7 @@ passport.use(new LocalStrategy({usernameField: 'username',passwordField: 'passwo
             if (admin === 'null') {
                 return done(null, false, { message: 'Incorrect username.' });
             }
-            admin = JSON.parse(admin);
+            //admin = JSON.parse(admin);
             console.log(admin.adminPWD);
             adminModel.isAdminPasswordValid(password, admin.adminPWD, function(err,result){
                 if (err){
@@ -238,10 +239,12 @@ passport.serializeUser(function(req, user,done) {
 
 
 passport.deserializeUser(function( user, done) {
-    console.log(user);
+    //console.log("deserializeUser: " );
+    //console.log(user);
     //done(user);
     if(user.type === 'student'){
         studentModel.studentFindByUserName(user.username, function(err, student){
+            //console.log("INSIDE deserailze - find student byu username");
             //console.log(student);
             done(err, student);
         })

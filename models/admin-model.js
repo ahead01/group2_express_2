@@ -13,7 +13,6 @@ var options = {
 exports.adminCheck = function (req,callback){
     options.path = '/admin/checkone/user?adminUserName=' + req.body.username;
     options.method = 'GET';
-    options.headers = {"Content-Type": "application/json"};
     http.request(options, function(resp) {
         //console.log('STATUS: ' + res.statusCode);
         //console.log('HEADERS: ' + JSON.stringify(res.headers));
@@ -25,7 +24,6 @@ exports.adminCheck = function (req,callback){
         });
     }).end();
 };
-
 
 exports.adminSave = function(user,callback){
     options.path = '/admin/add';
@@ -69,9 +67,13 @@ exports.adminFindByUserName = function(username, callback) {
         //console.log('HEADERS: ' + JSON.stringify(res.headers));
         //console.log(JSON.stringify(res.data));
         resp.setEncoding('utf8');
+        var data = "";
         resp.on('data', function (chunk) {
             //console.log('BODY: ' + chunk);
-            return callback(err, chunk);
+            data = data + chunk;
+        }).on('end', function(){
+            data = JSON.parse(data);
+            return callback(err, data);
         });
     }).end();
 };

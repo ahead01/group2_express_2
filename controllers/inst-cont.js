@@ -1,11 +1,10 @@
-
-
 var http = require('http');
 var config = require('../bin/config');
 var instModel = require('../models/inst-model');
 var passportConfig = require('../bin/passport-config');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var classModel = require('../models/class-model');
 
 var options = {
     host: config.servicehost,
@@ -19,6 +18,10 @@ function debug(err, res, req){
     console.log(err);
     res.render('error', {title: "Error", error: err, req: req});
 }
+
+exports.get_inst_add_class = function(req,res,next){
+    res.render('inst/instAddClass', { title: 'Institution Add Class' });
+};
 
 /* 8 GET Institution Login / Register page. */
 exports.inst_login = function(req, res, next) {
@@ -43,8 +46,9 @@ exports.inst =  function(req, res, next) {
 
 /* 5 GET Institution Classes */
 exports.inst_classes =  function (req, res, next){
-    options.path = '/class/getall';
+    options.path = '/class/getInstClass?institutionID=' + req.session.passport.user.institutionID;
     options.method = 'GET';
+    console.log(options.path);
     http.request(options, function(resp) {
         //console.log('STATUS: ' + res.statusCode);
         //console.log('HEADERS: ' + JSON.stringify(res.headers));
@@ -66,6 +70,19 @@ exports.inst_classes =  function (req, res, next){
 
 };
 
+exports.inst_add_class = function(req,res,next){
+    req.body.classInstitutionID = req.session.passport.user.institutionID;
+    req.body.ClassInstitutionID = req.session.passport.user.institutionID;
+    var myclass = req.body;
+    var newClass = JSON.stringify(req.body);
+    console.log('New Class: ' + newClass);
+
+    classModel.class_add_one(myclass,function(res){
+        console.log("inst_add_class: " + res);
+    });
+    res.redirect('/inst/add/class');
+};
+
 exports.inst_sign_in = function(req, res, next){
     req.body.type = 'inst';
     console.log('sign in type:' + req.body.type);
@@ -84,6 +101,7 @@ exports.inst_sign_in = function(req, res, next){
     //});
 
 };
+
 exports.inst_sign_up = function(req, res, next){
     req.type = 'inst';
     req.body.institutionApproved = 0;
@@ -114,23 +132,20 @@ exports.inst_update_desc = function(req, res, next){
     options.path = '/inst/update/desc?institutionID=' +req.body.institutionID + '&newVal=' + req.body.institutionDesc;
     options.path = encodeURI(options.path);
     options.method = 'GET';
+    req.session.passport.user.institutionDesc = req.body.institutionDesc;
 
     console.log("URL");
     console.log(options.path);
     var data = "";
     http.request(options, function(resp) {
-        //console.log('STATUS: ' + res.statusCode);
-        //console.log('HEADERS: ' + JSON.stringify(res.headers));
-        //console.log(JSON.stringify(res.data));
         resp.setEncoding('utf8');
         resp.on('data', function (chunk) {
             //console.log('BODY: ' + chunk);
             data = data + chunk;
         }).on('end', function() {
-            console.log(data);
-            console.log("DATA");
-
-            res.redirect('/inst/edit');
+               req.login(req.session.passport.user,function(err2) {
+                   return res.render('inst/instEdit', { title: 'Institution Edit' });
+                });
         })
     }).end();
 };
@@ -139,6 +154,7 @@ exports.inst_update_email = function(req, res, next){
     options.path = '/inst/update/email?institutionID=' +req.body.institutionID + '&newVal=' + req.body.institutionEmail ;
     options.path = encodeURI(options.path);
     options.method = 'GET';
+    req.session.passport.user.institutionEmail = req.body.institutionEmail;
 
     console.log("URL");
     console.log(options.path);
@@ -152,10 +168,11 @@ exports.inst_update_email = function(req, res, next){
             //console.log('BODY: ' + chunk);
             data = data + chunk;
         }).on('end', function() {
-            console.log(data);
-            console.log("DATA");
+            req.login(req.session.passport.user,function(err2) {
+                return res.redirect('/inst/edit');
+            });
 
-            res.redirect('/inst/edit');
+
         })
     }).end();
 };
