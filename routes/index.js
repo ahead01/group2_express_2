@@ -51,6 +51,8 @@ router.get('/inst/add/class', passportConfig.authenticationInstMiddleware(), ins
 
 router.post('/inst/add/class', passportConfig.authenticationInstMiddleware(), instController.inst_add_class);
 
+router.post('/inst/delete', passportConfig.authenticationAdminMiddleware(), instController.post_del_inst);
+
 /* ******************** END INSTITUTION ******************** */
 
 

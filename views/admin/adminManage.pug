@@ -24,12 +24,12 @@ block content
                             input#inputSearch.form-control(type='text', placeholder='Keyword')
             .row.m-3
             each val, index in results.list
-                .row
+                form.row(action='/inst/delete', method='post')
                     .col-sm-2
                     .col-lg
                         .card.text-white.bg-primary.mb-3
                             .card-header #{val.institutionName}
-                                a.close #{val.institutionID}
+                                button.close(type='submit', value=val.institutionID, name='institutionID') Delete
                             .card-body Institution Description: #{val.institutionDesc}
                     .col-sm-1
 
