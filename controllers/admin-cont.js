@@ -113,7 +113,7 @@ exports.admin_approve_inst = function(req, res, next) {
             //res.redirect('/admin/manage/inst');
             data = data + chunk;
         }).on('end', function() {
-            console.log('Updated  ' + chunk + ' records');
+            //console.log('Updated  ' + chunk + ' records');
             res.redirect('/admin/manage/inst');
         })
     }).end();
