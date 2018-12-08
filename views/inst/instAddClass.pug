@@ -7,9 +7,9 @@ block content
             .h1 #{msg}
         .p-1 Please fill out the following form in order to add a new class.
         form.text-white(action='/inst/add/class', method='post')
-            input.form-control(placeholder='Class Name', name='className')
-            input.form-control(placeholder='Class Description', name='classDesc')
-            input.form-control(placeholder='Number of Seats', name ='classSeats')
+            input.form-control(placeholder='Class Name', name='className', maxlength='24')
+            input.form-control(placeholder='Class Description', name='classDesc', maxlength='140')
+            input.form-control(placeholder='Number of Seats', name ='classSeats', maxlength='3')
             button.btn-primary(type='submit') Save
 
 

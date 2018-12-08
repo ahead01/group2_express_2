@@ -21,7 +21,7 @@ block content
                 .col-lg
                     .form-group.row
                         .col-sm-10
-                            input#inputSearch.form-control(type='text', placeholder='Keyword')
+                            input#inputSearch.form-control(type='text', placeholder='Keyword', maxlength='25')
             .row.m-3
             each val, index in results.list
                 form.row(action='/inst/delete', method='post')

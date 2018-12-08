@@ -11,7 +11,7 @@ block content
                     .col-lg.text-center
                         .form-group.row
                             .col-sm-10
-                                input#inputKeyword.form-control(type='text', placeholder='Keyword', name='keyword')
+                                input#inputKeyword.form-control(type='text', placeholder='Keyword', name='keyword',  maxlength='45')
                     .col-lg
                         button.btn.btn-primary.btn-lg(type='submit') Search
                 form.row.m-3.form(action='/student/search/location', method='post')
@@ -21,6 +21,6 @@ block content
                     .col-lg.text-center
                         .form-group.row
                             .col-sm-10
-                                input#inputLocation.form-control(type='text', placeholder='Location', name = 'location')
+                                input#inputLocation.form-control(type='text', placeholder='Location', name = 'location',  maxlength='45')
                     .col-lg
                         a.btn.btn-primary.btn-lg(href='/student/search/location') Search

@@ -10,20 +10,20 @@ block content
                         .card-header Videos
                             button#videoSave.close(type='submit', name='institutionID', value=session.passport.user.institutionID) Save
                         .card-body
-                            input.form-control(value=session.passport.user.institutionDesc, name='institutionDesc')
+                            input.form-control(value=session.passport.user.institutionDesc, name='institutionDesc',  maxlength='140')
 
                     form.col.m-2.card.bg-secondary.text-white(action='/inst/update/desc', method='post')
                         .card-header Institution Description
                             button#descSave.close(type='submit', name='institutionID', value=session.passport.user.institutionID) Save
                         .card-body
-                            input.form-control(value=session.passport.user.institutionDesc, name='institutionDesc')
+                            input.form-control(value=session.passport.user.institutionDesc, name='institutionDesc', maxlength='140')
                 .row.m-2
                 .row.m-2
                     form.col.m-2.card.bg-secondary.text-white(action='/inst/update/email', method='post')
                         .card-header Contact Info
                             button#emailSave.close(type='submit', name='institutionID', value=session.passport.user.institutionID) Save
                         .card-body
-                            input.form-control(value=session.passport.user.institutionEmail, name ='institutionEmail')
+                            input.form-control(value=session.passport.user.institutionEmail, name ='institutionEmail', maxlength='45')
                     .col.m-2.card.bg-secondary.text-white
                         .card-header Manage Courses
                         .card-body
