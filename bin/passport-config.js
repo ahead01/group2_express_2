@@ -138,7 +138,7 @@ passport.use(new LocalStrategy({usernameField: 'username',passwordField: 'passwo
         studentModel.studentFindByUserName(username, function(err, student){
             if (err) { return done(err); }
             console.log('student: ' + student);
-            if (student === 'null') {
+            if (student === 'null' || student === null) {
                 return done(null, false, { message: 'Incorrect username.' });
             }
             //student = JSON.parse(student);
@@ -170,8 +170,9 @@ passport.use(new LocalStrategy({usernameField: 'username',passwordField: 'passwo
     if(url === '/inst/sign-in'){
         instModel.instFindByUserName(username, function(err, inst){
             if (err) { return done(err); }
-            //console.log('inst: ' + inst);
-            if (inst === 'null') {
+            console.log('inst: ' + inst);
+            console.log(inst);
+            if (inst === 'null' || inst === null) {
                 return done(null, false, { message: 'Incorrect username.' });
             }
             //inst = JSON.parse(inst);
@@ -200,7 +201,7 @@ passport.use(new LocalStrategy({usernameField: 'username',passwordField: 'passwo
         adminModel.adminFindByUserName(username, function(err, admin){
             if (err) { return done(err); }
             console.log('admin: ' + admin);
-            if (admin === 'null') {
+            if (admin === 'null' || admin === null) {
                 return done(null, false, { message: 'Incorrect username.' });
             }
             //admin = JSON.parse(admin);
