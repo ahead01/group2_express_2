@@ -3,6 +3,8 @@ extends ../layout
 block content
     .jumbotron
         .h1 #{title}
+        if msg
+            .h1 #{msg}
         .p-1 Please fill out the following form in order to add a new class.
         form.text-white(action='/inst/add/class', method='post')
             input.form-control(placeholder='Class Name', name='className')

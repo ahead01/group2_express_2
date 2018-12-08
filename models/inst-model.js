@@ -1,4 +1,3 @@
-
 const bcrypt = require('bcrypt-nodejs');
 const crypto = require('crypto');
 var config = require('../bin/config');
@@ -99,6 +98,27 @@ exports.instFindByUserName = function(username, callback) {
         }).on('end',function(){
             data = JSON.parse(data);
             return callback(null, data);
+        });
+    }).end();
+};
+
+exports.instFindById = function(id, callback) {
+    var err = null;
+    options.path = '/inst/getone?' + id;
+    options.method = 'GET';
+    options.headers = {"Content-Type": "application/json"};
+    http.request(options, function(resp) {
+        //console.log('STATUS: ' + res.statusCode);
+        //console.log('HEADERS: ' + JSON.stringify(res.headers));
+        //console.log(JSON.stringify(res.data));
+        resp.setEncoding('utf8');
+        var data = "";
+        resp.on('data', function (chunk) {
+            //console.log('BODY: ' + chunk);
+            data = data + chunk;
+        }).on('end',function(){
+            data = JSON.parse(data);
+            return callback( data);
         });
     }).end();
 };

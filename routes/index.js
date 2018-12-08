@@ -30,13 +30,13 @@ router.post('/inst/sign-in',  passport.authenticate('local',{failureRedirect: '/
 router.post('/inst/sign-up',instController.inst_sign_up);
 
 /* 14 GET Institution Register Success page. */
-router.get('/inst/login/reg', passportConfig.authenticationInstMiddleware(),instController.inst_login_reg);
+router.get('/inst/login/reg',instController.inst_login_reg);
 
 /* 9 GET Institution Edit page. */
 router.get('/inst/edit', passportConfig.authenticationInstMiddleware(), instController.inst_edit);
 
 /* 7 GET Instutution Home page. */
-router.get('/inst/home', passportConfig.authenticationInstMiddleware(), instController.inst);
+router.get('/inst/home', instController.inst);
 
 /* 5 GET Institution Classes */
 router.get('/inst/home/class', passportConfig.authenticationInstMiddleware(), instController.inst_classes);

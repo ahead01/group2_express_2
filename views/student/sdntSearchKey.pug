@@ -10,8 +10,8 @@ block content
                         .col-lg
                             .card.text-white.bg-primary.mb-3
                                 .card-header #{val.className}
-                                    a.close Institution: #{val.ClassInstitutionID}
+                                    a.close(href='/inst/home?id=' + val.ClassInstitutionID) Institution: #{val.ClassInstitutionID}
                                 .card-body Course Description: #{val.classDesc}
                                 .card-footer
                                     .card-text Seats: #{val.classSeats}
-                                    button.close Register
+                                    a.close(href='/') Register

@@ -3,20 +3,42 @@ extends ../layout
 block content
     .jumbotron
         .h1 #{title}
-        .container
-            .table
-                .row.m-2
-                    .col.m-2.card.bg-secondary.text-white
-                        .card-header Videos
-                        .card-body #{session.passport.user.institutionDesc}
-                    .col.m-2.card.bg-secondary.text-white
-                        .card-header Institution Description
-                        .card-body #{session.passport.user.institutionDesc}
-                .row.m-2
-                .row.m-2
-                    .col.m-2.card.bg-secondary.text-white
-                        .card-header Contact Info
-                        .card-body #{session.passport.user.institutionEmail}
-                    .col.m-2.card.bg-secondary.text-white
-                        .card-header Manage Courses
-                        .card-body.btn.btn-lg.btn-primary View Courses
+        if session
+            if session.passport
+                if session.passport.user
+                    if session.passport.user.type === 'inst'
+                        .container
+                            .table
+                                .row.m-2
+                                    .col.m-2.card.bg-secondary.text-white
+                                        .card-header Videos
+                                        .card-body #{session.passport.user.institutionDesc}
+                                    .col.m-2.card.bg-secondary.text-white
+                                        .card-header Institution Description
+                                        .card-body #{session.passport.user.institutionDesc}
+                                .row.m-2
+                                .row.m-2
+                                    .col.m-2.card.bg-secondary.text-white
+                                        .card-header Contact Info
+                                        .card-body #{session.passport.user.institutionEmail}
+                                    .col.m-2.card.bg-secondary.text-white
+                                        .card-header Manage Courses
+                                        a.btn.btn-lg.btn-primary(href='/inst/home/class') View Courses
+                    if session.passport.user.type === 'student'
+                        .container
+                            .table
+                                .row.m-2
+                                    .col.m-2.card.bg-secondary.text-white
+                                        .card-header Videos
+                                        .card-body #{inst.institutionDesc}
+                                    .col.m-2.card.bg-secondary.text-white
+                                        .card-header Institution Description
+                                        .card-body #{inst.institutionDesc}
+                                .row.m-2
+                                .row.m-2
+                                    .col.m-2.card.bg-secondary.text-white
+                                        .card-header Contact Info
+                                        .card-body #{inst.institutionEmail}
+                                    .col.m-2.card.bg-secondary.text-white
+                                        .card-header Manage Courses
+                                        a.btn.btn-lg.btn-primary(href='/inst/home/class') View Courses

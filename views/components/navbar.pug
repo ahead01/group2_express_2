@@ -29,6 +29,8 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-dark.fixed-top
                                     if session.passport.user.type === 'inst'
                                         li.nav-item
                                             a.nav-link(href='/inst/home') Home
+                                        li.nav-item
+                                            a.nav-link(href='/inst/edit') Edit
                                     if session.passport.user.type === 'student'
                                         li.nav-item
                                             a.nav-link(href='/student/search') Search

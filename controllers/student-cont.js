@@ -1,5 +1,6 @@
 var classModel = require('../models/class-model');
 var studentModel = require('../models/student-model');
+var instModel = require('../models/inst-model');
 var config = require('../bin/config');
 var http = require('http');
 
@@ -28,7 +29,14 @@ exports.post_student_search_keyword = function(req,res,next){
         courses.list = data;
         console.log("Courses:");
         console.log(courses);
-        res.render('student/sdntSearchKey', { title: 'Student Keyword Search Results', results: courses });
+        instModel.getAllInstitutions(function(data){
+            var institutions = data;
+            console.log(institutions);
+            console.log("INstitutions form post_student_search_eky");
+            res.render('student/sdntSearchKey', { title: 'Student Keyword Search Results', results: courses, institutions: institutions });
+
+        });
+
     });
 };
 

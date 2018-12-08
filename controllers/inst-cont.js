@@ -41,7 +41,15 @@ exports.inst_edit =  function(req, res, next) {
 
 /* 7 GET Instutution Home page. */
 exports.inst =  function(req, res, next) {
-    res.render('inst/instHome', { title: 'Institution Home' });
+    //console.log(req._parsedUrl.query);
+    if(req._parsedUrl.query){
+        var id = req._parsedUrl.query;
+        instModel.instFindById(id,function(inst){
+            console.log(inst);
+            res.render('inst/instHome', { title: 'Institution Home', inst: inst });
+        })
+    }
+
 };
 
 /* 5 GET Institution Classes */
@@ -77,10 +85,11 @@ exports.inst_add_class = function(req,res,next){
     var newClass = JSON.stringify(req.body);
     console.log('New Class: ' + newClass);
 
+
     classModel.class_add_one(myclass,function(res){
         console.log("inst_add_class: " + res);
     });
-    res.redirect('/inst/add/class');
+    res.render('inst/instAddClass', {title: 'Institution Add Class',msg:"SUCCESS!"});
 };
 
 exports.inst_sign_in = function(req, res, next){
@@ -121,7 +130,7 @@ exports.inst_sign_up = function(req, res, next){
                     console.log(req.user);
                     console.log(req.isAuthenticated());
                     res.locals.isAuthenticated = req.isAuthenticated();
-                    res.redirect('/inst/edit');
+                    res.redirect('/inst/login/reg');
                 })
             }
         });
