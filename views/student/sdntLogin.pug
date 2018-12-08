@@ -11,10 +11,10 @@ block content
                     .col-lg.text-center
                         .form-group.row
                             .col-sm-10
-                                input#inputUID1.form-control(type='text', placeholder='Usernmae', name='username', maxlength='8')
+                                input#inputUID1.form-control(type='text', placeholder='Usernmae', name='username', maxlength='8', required='true')
                         .form-group.row
                             .col-sm-10
-                                input#inputPassword1.form-control(type='password', placeholder='Password', name='password', maxlength='16')
+                                input#inputPassword1.form-control(type='password', placeholder='Password', name='password', maxlength='16', required='true')
                     .col-lg.text-left
                         button.btn.btn-primary.btn-lg(type='submit') Login
                 form#studentSignUpForm.m-3.form(action='/student/sign-up', method='post')
@@ -24,34 +24,34 @@ block content
                         .col-lg.text-center
                             .form-group.row
                                 .col-sm-10
-                                    input#inputFname.form-control(type='text', placeholder='First Name', name='studentFName', maxlength='8')
+                                    input#inputFname.form-control(type='text', placeholder='First Name', name='studentFName', maxlength='8', required='true')
                             .form-group.row
                                 .col-sm-10
-                                    input#inputLname.form-control(type='text', placeholder='Last Name', name='studentLName', maxlength='45')
+                                    input#inputLname.form-control(type='text', placeholder='Last Name', name='studentLName', maxlength='45', required='true')
                             .form-group.row
                                 .col-sm-10
-                                    input#inputUID2.form-control(type='text', placeholder='Username', name='studentUserName', maxlength='8')
+                                    input#inputUID2.form-control(type='text', placeholder='Username', name='studentUserName', maxlength='8', required='true')
                             .form-group.row
                                 .col-sm-10
-                                    input#inputEmail2.form-control(type='email', placeholder='Email', name='studentEmail', maxlength='45')
+                                    input#inputEmail2.form-control(type='email', placeholder='Email', name='studentEmail', maxlength='45', required='true')
                             .form-group.row
                                 .col-sm-10
-                                    input#inputPassword2.form-control(type='password', placeholder='Password', name='studentPWD', maxlength='45')
+                                    input#inputPassword2.form-control(type='password', placeholder='Password', name='studentPWD', maxlength='45', required='true')
                             .form-group.row
                                 .col-sm-10
-                                    input#inputPassword3.form-control(type='password', placeholder='Confirm Password', name='password2', maxlength='45')
+                                    input#inputPassword3.form-control(type='password', placeholder='Confirm Password', name='password2', maxlength='45', required='true')
                         .col-lg.text-center
                             .form-group.row
                                 .col-md
-                                    input#inputAddress.form-control(type='text', placeholder='Address', name = 'studentAddress', maxlength='45')
+                                    input#inputAddress.form-control(type='text', placeholder='Address', name = 'studentAddress', maxlength='45', required='true')
                             .form-group.row
                                 .col-sm-8
-                                    input#inputZip.form-control(type='text', placeholder='Zipcode', name = 'studentZip', maxlength='5')
+                                    input#inputZip.form-control(type='text', placeholder='Zipcode', name = 'studentZip', maxlength='5', required='true')
                             .form-group.row
                                 .col-sm
-                                    input#inputCity.form-control(type='text', placeholder='City', name = 'studentCity', maxlength='23')
+                                    input#inputCity.form-control(type='text', placeholder='City', name = 'studentCity', maxlength='23', required='true')
                                 .col-sm
-                                    input#inputState.form-control(type='text', placeholder='State', name = 'studentState', maxlength='2')
+                                    input#inputState.form-control(type='text', placeholder='State', name = 'studentState', maxlength='2', required='true')
                             .form-group.row
                                 .col-sm-10
                             .form-group.row
