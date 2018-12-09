@@ -3,19 +3,37 @@ extends ../layout
 block content
     .jumbotron
         .h1 #{title}
-        .container.m-3
-            a.btn.btn-primary(href="/inst/add/class") Add New Class
-        .container
-            .table
-                if results.list !== null
-                    each val, index in results.list
-                        form(action='/inst/class/delete', method='post')
-                            .row
-                                .col-lg
-                                    .card.text-white.bg-primary.mb-3
-                                        .card-header #{val.className}
-                                            a.close(href='/inst/home?id=' + val.ClassInstitutionID) Institution: #{val.ClassInstitutionID}
-                                        .card-body Course Description: #{val.classDesc}
-                                        .card-footer
-                                            .card-text Seats: #{val.classSeats}
-                                            button.close(type='submit', value=val.classID, name='classID') Delete
+        if session
+            if session.passport
+                if session.passport.user
+                    if session.passport.user.type === 'inst'
+                        .container.m-3.text-right
+                            a.btn.btn-primary(href="/inst/add/class") Add New Class
+                        .container
+                            .table
+                                if results.list !== null
+                                    each val, index in results.list
+                                        form(action='/inst/class/delete', method='post')
+                                            .row
+                                                .col-lg
+                                                    .card.text-white.bg-primary.mb-3
+                                                        .card-header #{val.className}
+                                                            a.close(href='/inst/home?id=' + val.ClassInstitutionID) Institution: #{val.ClassInstitutionID}
+                                                        .card-body Course Description: #{val.classDesc}
+                                                        .card-footer
+                                                            .card-text Seats: #{val.classSeats}
+                                                            button.close(type='submit', value=val.classID, name='classID') Delete
+
+                    if session.passport.user.type === 'student'
+                        if results.list !== null
+                            each val, index in results.list
+                                form(action='/inst/class/delete', method='post')
+                                    .row
+                                        .col-lg
+                                            .card.text-white.bg-primary.mb-3
+                                                .card-header #{val.className}
+                                                    a.close(href='/inst/home?id=' + val.ClassInstitutionID) Institution: #{val.ClassInstitutionID}
+                                                .card-body Course Description: #{val.classDesc}
+                                                .card-footer
+                                                    .card-text Seats: #{val.classSeats}
+                                                    a.close(href= institution.institutionUrl === undefined ? '#' : 'https://' + institution.institutionUrl ) Register

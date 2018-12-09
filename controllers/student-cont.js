@@ -30,7 +30,15 @@ exports.post_student_search_keyword = function(req,res,next){
         console.log("Courses:");
         console.log(courses);
         instModel.getAllInstitutions(function(data){
-            var institutions = data;
+            var institutions = {};
+            var length = data.list.length;
+            var i;
+            console.log(length);
+            for (i =0; i < length ; i++){
+                var temp = data.list[i];
+                //console.log(temp);
+                institutions[temp.institutionID] = temp;
+            }
             console.log(institutions);
             console.log("INstitutions form post_student_search_eky");
             res.render('student/sdntSearchKey', { title: 'Student Keyword Search Results', results: courses, institutions: institutions });
@@ -111,4 +119,34 @@ exports.student_sign_in = function(req, res, next) {
 
 
     res.redirect('/student/search');
+};
+
+
+exports.student_view_inst_classes = function(req,res,next){
+    console.log(req.query);
+    options.path = '/class/getInstClass?' + req._parsedUrl.query;
+    options.method = 'GET';
+    console.log(options.path);
+    http.request(options, function(resp) {
+        //console.log('STATUS: ' + res.statusCode);
+        //console.log('HEADERS: ' + JSON.stringify(res.headers));
+        //console.log(JSON.stringify(res.data));
+        resp.setEncoding('utf8');
+        var data = "";
+        resp.on('data', function (chunk) {
+            //console.log('BODY: ' + chunk);
+            data = data + chunk;
+
+        }).on('end', function() {
+            var courses = {'list':[]};
+            courses.list = JSON.parse(data);
+            //console.log(courses);
+            instModel.instFindById('id='+ req.query.institutionID, function(inst){
+                console.log(inst);
+                res.render('inst/instClass', {title: 'Institution '+ inst.institutionName  +' Classes', results: courses, institution: inst });
+            });
+
+        })
+    }).end();
+
 };

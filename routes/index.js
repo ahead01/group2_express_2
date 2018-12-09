@@ -79,6 +79,7 @@ router.post('/student/search/keyword', passportConfig.authenticationStudentMiddl
 /* 6 GET Student Location Search Results page. */
 router.get('/student/search/location', passportConfig.authenticationStudentMiddleware(), studentController.student_search_location);
 
+router.get('/student/inst/home/class',passportConfig.authenticationStudentMiddleware() , studentController.student_view_inst_classes );
 
 /* ******************** END STUDENT ******************** */
 
@@ -112,6 +113,8 @@ router.get('/admin/add/inst', adminController.get_amdin_add_inst);
 router.post('/admin/add/inst', adminController.post_amdin_add_inst);
 
 router.post('/admin/inst/search', adminController.post_admin_search);
+
+
 /* ******************** END ADMIN ******************** */
 
 module.exports = router;

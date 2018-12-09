@@ -7,6 +7,7 @@ block content
             if session.passport
                 if session.passport.user
                     if session.passport.user.type === 'inst'
+                        .h2 #{session.passport.user.institutionName}
                         .container
                             .table
                                 .row.m-2
@@ -25,6 +26,7 @@ block content
                                         .card-header Manage Courses
                                         a.btn.btn-lg.btn-primary(href='/inst/home/class') View Courses
                     if session.passport.user.type === 'student'
+                        .h2 #{inst.institutionName}
                         .container
                             .table
                                 .row.m-2
@@ -41,4 +43,4 @@ block content
                                         .card-body #{inst.institutionEmail}
                                     .col.m-2.card.bg-secondary.text-white
                                         .card-header Manage Courses
-                                        a.btn.btn-lg.btn-primary(href='/inst/home/class') View Courses
+                                        a.btn.btn-lg.btn-primary(href='/student/inst/home/class?institutionID=' + inst.institutionID) View Courses

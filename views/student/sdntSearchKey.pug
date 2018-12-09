@@ -10,8 +10,8 @@ block content
                         .col-lg
                             .card.text-white.bg-primary.mb-3
                                 .card-header.h2 #{val.className}
-                                    a.close(href='/inst/home?id=' + val.ClassInstitutionID) Institution: #{val.ClassInstitutionID}
+                                    a.close(href='/inst/home?id=' + val.ClassInstitutionID) #{institutions[val.ClassInstitutionID].institutionName}
                                 .card-body Course Description: #{val.classDesc}
                                 .card-footer
                                     .card-text Seats: #{val.classSeats}
-                                    a.close(href='/') Register
+                                    a.close(href= institutions[val.ClassInstitutionID].institutionUrl === undefined ? '#' : 'https://' + institutions[val.ClassInstitutionID].institutionUrl ) Register
