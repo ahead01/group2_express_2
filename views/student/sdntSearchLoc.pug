@@ -1,16 +1,21 @@
 extends ../layout
 
 block content
+    link(rel='stylesheet', href='/stylesheets/google-maps.css')
     .jumbotron
         .h1 #{title}
-        //
-          This stylesheet contains specific styles for displaying
-          the map on this page. Replace it with your own styles as
-          described in the documentation:
-          https://developers.google.com/maps/documentation/javascript/tutorial
-        link(rel='stylesheet', href='/maps/documentation/javascript/cgc/demos.css')
-        #map
-        script.
+        div(style="width:100%;height:100%")
+            #map(style='width: 75%; height: 75%; position: absolute;')
+                #map-canvas
+
+    script.
+        window.onload = function(){
+            //var search = "#{JSON.stringify(search)}";
+            var search = !{JSON.stringify(search)};
+            var markers = !{JSON.stringify(markers)};
+            console.log(markers);
+
+        };
             function initMap() {
                 var myLatLng = {lat: -25.363, lng: 131.044};
                 // Create a map object and specify the DOM element
@@ -25,5 +30,48 @@ block content
                     position: myLatLng,
                     title: 'Hello World!'
                 });
+                //console.log(map);
+                var geocoder = new google.maps.Geocoder;
+                var infowindow = new google.maps.InfoWindow;
+                geocodeLatLng(geocoder, map, infowindow);
+
             }
-        script(src='https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap', async='', defer='')
+            var search = !{JSON.stringify(search)};
+            var markers = !{JSON.stringify(markers)};
+            function geocodeLatLng(geocoder, map, infowindow) {
+                geocoder.geocode(search, function(results, status) {
+                    if (status === 'OK') {
+                        if (results[0]) {
+                            map.setZoom(11);
+                            var marker = new google.maps.Marker({position: results[0].geometry.location, map: map, title:"Your Search", label: "Your Search", animation: google.maps.Animation.DROP });
+                            for(var i = 0; i < markers.length; i++){
+                                var title = markers[i].title;
+                                var position = {lat: markers[i].lat, lng: markers[i].lng};
+                                var label = markers[i].label;
+                                var mark = new google.maps.Marker({position: position, map: map, title: title, label:label});
+                                (function(marker){
+                                    mark.addListener('click', function () {
+                                        window.location.assign("/inst/home?id=" + marker.id);
+                                    });
+                                }(markers[i]))
+
+                                /*google.maps.event.addListener(mark, 'click', function () {
+                                    var infowindow = new google.maps.InfoWindow({
+                                        content: title ,
+                                        position: position,
+                                    });
+                                    infowindow.open(map);
+                                });*/
+                            }
+                            console.log(results[0]);
+                            infowindow.setContent(results[0].formatted_address);
+                            infowindow.open(map, marker);
+                        } else {
+                             window.alert('No results found');
+                        }
+                    } else {
+                        window.alert('Geocoder failed due to: ' + status);
+                    }
+                });
+            }
+    script(src='https://maps.googleapis.com/maps/api/js?key='+ process.env.GOOGLE_API +'&callback=initMap', async='', defer='')

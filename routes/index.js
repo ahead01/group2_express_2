@@ -81,6 +81,8 @@ router.get('/student/search/location', passportConfig.authenticationStudentMiddl
 
 router.get('/student/inst/home/class',passportConfig.authenticationStudentMiddleware() , studentController.student_view_inst_classes );
 
+router.post('/student/search/location', passportConfig.authenticationStudentMiddleware(), studentController.post_student_search_loc);
+
 /* ******************** END STUDENT ******************** */
 
 

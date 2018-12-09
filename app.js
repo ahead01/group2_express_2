@@ -8,7 +8,7 @@ var flash = require('connect-flash');
 var session = require("express-session");
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-
+require('dotenv').config();
 var app = express();
 
 /* Session configuration */

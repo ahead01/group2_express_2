@@ -1,3 +1,4 @@
+
 var classModel = require('../models/class-model');
 var studentModel = require('../models/student-model');
 var instModel = require('../models/inst-model');
@@ -9,6 +10,37 @@ var options = {
     port: config.serviceport,
     path: '/',
     method: 'GET'
+};
+
+exports.post_student_search_loc = function(req,res,next){
+    /* Convert Search into lat and long using Google Maps Geocoding API */
+    //var geocoder = new google.maps.Geocoder();
+    console.log("post_student_search_loc");
+    instModel.getAllInstitutions(function(institutions){
+        console.log(institutions);
+        institutions = institutions.list;
+        var markers = [];
+        for(var i = 0; i < institutions.length; i++){
+            if(institutions[i].institutionLat && institutions[i].institutionLong){
+                console.log("1");
+                console.log(institutions[i]);
+                var lat = Number(institutions[i].institutionLat);
+                var lng = Number(institutions[i].institutionLong);
+                if(lat !== "Nan" && lng !== "NaN"){
+                    var marker =   {lat: lat, lng: lng, title: institutions[i].institutionName, label: institutions[i].institutionName, id: institutions[i].institutionID };
+                    markers.push(marker);
+                }
+            }
+        }
+        var GeocoderRequest =
+            {
+                address: req.body.location,
+                region: "US"
+            };
+        console.log(markers);
+        res.render('student/sdntSearchLoc', { title: 'Student Search By Location', search: GeocoderRequest, markers: markers });
+    });
+
 };
 
 /* 2 GET Student Login / Register page. */
