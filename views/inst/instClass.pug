@@ -9,12 +9,13 @@ block content
             .table
                 if results.list !== null
                     each val, index in results.list
-                        .row
-                            .col-lg
-                                .card.text-white.bg-primary.mb-3
-                                    .card-header #{val.className}
-                                        a.close Institution: #{val.ClassInstitutionID}
-                                    .card-body Course Description: #{val.classDesc}
-                                    .card-footer
-                                        .card-text Seats: #{val.classSeats}
-                                        button.close Register
+                        form(action='/inst/class/delete', method='post')
+                            .row
+                                .col-lg
+                                    .card.text-white.bg-primary.mb-3
+                                        .card-header #{val.className}
+                                            a.close(href='/inst/home?id=' + val.ClassInstitutionID) Institution: #{val.ClassInstitutionID}
+                                        .card-body Course Description: #{val.classDesc}
+                                        .card-footer
+                                            .card-text Seats: #{val.classSeats}
+                                            button.close(type='submit', value=val.classID, name='classID') Delete

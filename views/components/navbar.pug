@@ -39,6 +39,10 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-dark.fixed-top
                                     if session.passport.user.type === 'admin'
                                         li.nav-item
                                             a.nav-link(href='/admin/manage') Home
+                                        li.nav-item
+                                            a.nav-link(href='/admin/manage/inst') Requests
+                                        li.nav-item
+                                            a.nav-link(href='/admin/add/inst') Add Institution
                             else
                                 li.nav-item
                                     a.nav-link(href='/student/login') Student

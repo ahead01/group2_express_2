@@ -1,3 +1,4 @@
+
 var adminModel = require( "../models/admin-model");
 
 var http = require('http');
@@ -42,6 +43,29 @@ exports.admin_search = function(req, res, next) {
 /* 16 GET Admin Search Results page. */
 exports.admin_search_results = function(req, res, next) {
     res.render('admin/adminSearchResult', { title: 'Admin Search Results' });
+};
+
+exports.post_admin_search = function(req,res,next){
+    options.path = '/inst/getSome?keyword=' + req.body.keyword;
+    options.method = 'GET';
+    var data = "";
+    http.request(options, function(resp) {
+        //console.log('STATUS: ' + res.statusCode);
+        //console.log('HEADERS: ' + JSON.stringify(res.headers));
+        //console.log(JSON.stringify(res.data));
+        resp.setEncoding('utf8');
+        resp.on('data', function (chunk) {
+            //console.log('BODY: ' + chunk);
+            data = data + chunk;
+        }).on('end', function() {
+            //console.log(data);
+            // console.log("DATA");
+            var institutions = {'list':[]};
+            institutions.list = JSON.parse(data);
+            console.log(institutions);
+            res.render('admin/adminManage', { title: 'Admin Management', results: institutions });
+        })
+    }).end();
 };
 
 /* 12 GET Admin Manage page. ( For Approving and Denying Inst Registration Requests */

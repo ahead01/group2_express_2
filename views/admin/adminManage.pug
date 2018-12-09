@@ -17,20 +17,37 @@ block content
                     .h2 Manage Current Institutions
             .row.m-3
                 .col-lg.text-center
-                    .h4 Keyword Search
+                    .row.m-2
+                        .h4 Keyword Search
+                    .row.m-2
+                        .h6 Empty search value returns all institutions.
                 .col-lg
-                    .form-group.row
-                        .col-sm-10
-                            input#inputSearch.form-control(type='text', placeholder='Keyword', maxlength='25')
+                    form.form-group.row(action='/admin/inst/search', method='post')
+                        .col-sm-10.m-2
+                            input#inputSearch.form-control(type='text', name='keyword', placeholder='Keyword', maxlength='25')
+                        .col-sm-10.m-2.text-right
+                            button.btn-primary(type='submit') Search
             .row.m-3
             each val, index in results.list
                 form.row(action='/inst/delete', method='post')
                     .col-sm-2
                     .col-lg
                         .card.text-white.bg-primary.mb-3
-                            .card-header #{val.institutionName}
+                            .h3.card-header #{val.institutionName}
                                 button.close(type='submit', value=val.institutionID, name='institutionID') Delete
-                            .card-body Institution Description: #{val.institutionDesc}
+                            .card-body.row
+                                .col.m-3
+                                    .h4.card-title Description:
+                                    .card-text #{val.institutionDesc}
+                                .col.m-3
+                                    .h4.card-title Address:
+                                    .card-text #{val.institutionStreetAddr}
+                                    .card-text #{val.institutionCity} #{val.institutionStateCD}, #{val.institutionZipCD}
+                            .card-footer
+                                if val.institutionApproved == 1
+                                    .close Approved
+                                else
+                                    .close Not Approved
                     .col-sm-1
 
 

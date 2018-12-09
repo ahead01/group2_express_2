@@ -53,6 +53,8 @@ router.post('/inst/add/class', passportConfig.authenticationInstMiddleware(), in
 
 router.post('/inst/delete', passportConfig.authenticationAdminMiddleware(), instController.post_del_inst);
 
+router.post('/inst/class/delete', passportConfig.authenticationInstMiddleware(), instController.post_del_class);
+
 /* ******************** END INSTITUTION ******************** */
 
 
@@ -108,6 +110,8 @@ router.get('/admin/add/inst', adminController.get_amdin_add_inst);
 
 /* 15 POST Admin Add Institution page. */
 router.post('/admin/add/inst', adminController.post_amdin_add_inst);
+
+router.post('/admin/inst/search', adminController.post_admin_search);
 /* ******************** END ADMIN ******************** */
 
 module.exports = router;

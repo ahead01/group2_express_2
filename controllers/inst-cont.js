@@ -1,4 +1,5 @@
 
+
 var http = require('http');
 var config = require('../bin/config');
 var instModel = require('../models/inst-model');
@@ -51,6 +52,25 @@ exports.inst =  function(req, res, next) {
         })
     }
 
+};
+exports.post_del_class = function(req,res,next){
+    options.path = '/class/delete?classID=' + req.body.classID;
+    options.method = 'GET';
+    http.request(options, function(resp) {
+        //console.log('STATUS: ' + res.statusCode);
+        //console.log('HEADERS: ' + JSON.stringify(res.headers));
+        //console.log(JSON.stringify(res.data));
+        resp.setEncoding('utf8');
+        var data = "";
+        resp.on('data', function (chunk) {
+            //console.log('BODY: ' + chunk);
+            data = data + chunk;
+
+        }).on('end', function() {
+            console.log(data);
+            res.redirect('/inst/home/class');
+        })
+    }).end();
 };
 
 exports.post_del_inst = function(req,res,next){
