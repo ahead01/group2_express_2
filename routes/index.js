@@ -12,11 +12,19 @@ var studentController = require('../controllers/student-cont');
 
 /* 1 GET home page. */
 router.get('/', function(req, res, next) {
+    if(req.session){
+        if(req.session.flash){
+            if(req.session.flash.error){
+                delete req.session.flash.error;
+            }
+        }
+    }
         req.logout();
-        console.log("Is Authenticated:");
-        console.log(req.isAuthenticated());
-        console.log(req.isAuthenticated);
-        console.log(req.isAuthenticated === true);
+        //console.log("Is Authenticated:");
+        //console.log(req.isAuthenticated());
+        //console.log(req.isAuthenticated);
+        //console.log(req.isAuthenticated === true);
+
 
         res.render('index', { title: 'Private Institution Marketing Application' });
 });
@@ -25,7 +33,7 @@ router.get('/', function(req, res, next) {
 /* 8 GET Institution Login / Register page. */
 router.get('/inst/login', instController.inst_login);
 
-router.post('/inst/sign-in',  passport.authenticate('local',{failureRedirect: '/inst/login', successRedirect: '/inst/edit'}), instController.inst_edit);
+router.post('/inst/sign-in',  passport.authenticate('local',{failureRedirect: '/inst/login', successRedirect: '/inst/edit', failureFlash : true}), instController.inst_edit);
 
 router.post('/inst/sign-up',instController.inst_sign_up);
 
@@ -63,7 +71,7 @@ router.post('/inst/class/delete', passportConfig.authenticationInstMiddleware(),
 router.get('/student/login', studentController.student_login);
 
 /* 2 POST Student sign in / Register page. */
-router.post('/student/sign-in',  passport.authenticate('local',{failureRedirect: '/student/login', successRedirect: '/student/search'}), studentController.student_sign_in);
+router.post('/student/sign-in',  passport.authenticate('local',{failureRedirect: '/student/login', successRedirect: '/student/search', failureFlash : true}), studentController.student_sign_in);
 
 /* 2 POST Student sign up / Register page. */
 router.post('/student/sign-up', studentController.student_sign_up);
@@ -90,7 +98,7 @@ router.post('/student/search/location', passportConfig.authenticationStudentMidd
 /* 10 GET Admin Login page. */
 router.get('/admin/login',  adminController.admin_login);
 
-router.post('/admin/sign-in', passport.authenticate('local',{failureRedirect: '/admin/login', successRedirect: '/admin/manage'}));
+router.post('/admin/sign-in', passport.authenticate('local',{failureRedirect: '/admin/login', successRedirect: '/admin/manage', failureFlash : true}));
 
 router.post('/admin/sign-up',adminController.admin_sign_up);
 

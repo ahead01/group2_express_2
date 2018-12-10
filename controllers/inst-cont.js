@@ -27,6 +27,9 @@ exports.get_inst_add_class = function(req,res,next){
 
 /* 8 GET Institution Login / Register page. */
 exports.inst_login = function(req, res, next) {
+    console.log(req.body);
+    console.log(req.session);
+    //req.flash('info', 'Flash is back!')
     res.render('inst/instLogin', { title: 'Institution Login' });
 };
 

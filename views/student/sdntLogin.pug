@@ -3,6 +3,14 @@ extends ../layout
 block content
     .jumbotron
         .h1 #{title}
+        if session
+            if session.flash
+                if session.flash.error
+                    .alert.alert-dismissible.alert-danger
+                        button#dismiss.close(type='button', data-dismiss='alert') ×
+                        strong Oh snap!
+                        a #{session.flash.error[0]} Change a few things up
+                        |  and try submitting again.
         .container.m-0
             .table
                 form#studentSignInForm.row.m-3.form(action='/student/sign-in', method='post')
@@ -57,3 +65,5 @@ block content
                             .form-group.row
                                 .col-sm-10
                                     button.btn.btn-primary.btn-lg(type='submit') Register
+
+

@@ -3,6 +3,14 @@ extends ../layout
 block content
     .jumbotron
         .h1 #{title}
+        if session
+            if session.flash
+                if session.flash.error
+                    .alert.alert-dismissible.alert-danger
+                        button.close(type='button', data-dismiss='alert') ×
+                        strong Oh snap!
+                        a #{session.flash.error[0]} Change a few things up
+                        |  and try submitting again.
         .container.m-0
             .table
                 form.row.m-3.form(action='/inst/sign-in', method='post')
