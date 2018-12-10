@@ -118,7 +118,7 @@ exports.post_amdin_add_inst =  function(req, res, next) {
     instModel.instAddOne(inst,function(res){
         console.log("post_admin_add_inst: " + res);
     });
-    res.redirect('/admin/manage/inst');
+    res.redirect('/admin/manage');
 
 
 };
