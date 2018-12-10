@@ -12,18 +12,27 @@ block content
                             .table
                                 .row.m-2
                                     .col.m-2.card.bg-secondary.text-white
-                                        .card-header Videos
-                                        .card-body #{session.passport.user.institutionDesc}
+                                        .card-header.h3 Details
+                                            //button#videoSave.close(type='submit', name='institutionID', value=session.passport.user.institutionID) Save
+                                        .card-body
+                                            .row
+                                                .col.m-1
+                                                    .h4.card-title Description:
+                                                    .card-text #{session.passport.user.institutionDesc}
+                                                .col.m-1
+                                                    .h4.card-title Address:
+                                                    .card-text #{session.passport.user.institutionStreetAddr}
+                                                    .card-text #{session.passport.user.institutionCity} #{session.passport.user.institutionStateCD}, #{session.passport.user.institutionZipCD}
                                     .col.m-2.card.bg-secondary.text-white
-                                        .card-header Institution Description
+                                        .card-header.h3 Institution Description
                                         .card-body #{session.passport.user.institutionDesc}
                                 .row.m-2
                                 .row.m-2
                                     .col.m-2.card.bg-secondary.text-white
-                                        .card-header Contact Info
+                                        .card-header.h3 Contact Info
                                         .card-body #{session.passport.user.institutionEmail}
                                     .col.m-2.card.bg-secondary.text-white
-                                        .card-header Manage Courses
+                                        .card-header.h3 Manage Courses
                                         a.btn.btn-lg.btn-primary(href='/inst/home/class') View Courses
                     if session.passport.user.type === 'student'
                         .h2 #{inst.institutionName}
@@ -31,16 +40,25 @@ block content
                             .table
                                 .row.m-2
                                     .col.m-2.card.bg-secondary.text-white
-                                        .card-header Videos
-                                        .card-body #{inst.institutionDesc}
+                                        .card-header.h3 Details
+                                            //button#videoSave.close(type='submit', name='institutionID', value=session.passport.user.institutionID) Save
+                                        .card-body
+                                            .row
+                                                .col.m-1
+                                                    .h4.card-title Description:
+                                                    .card-text #{inst.institutionDesc}
+                                                .col.m-1
+                                                    .h4.card-title Address:
+                                                    .card-text #{inst.institutionStreetAddr}
+                                                    .card-text #{inst.institutionCity} #{inst.institutionStateCD}, #{inst.institutionZipCD}
                                     .col.m-2.card.bg-secondary.text-white
-                                        .card-header Institution Description
-                                        .card-body #{inst.institutionDesc}
+                                        .card-header.h3 Institution URL
+                                        .card-body #{inst.institutionUrl}
                                 .row.m-2
                                 .row.m-2
                                     .col.m-2.card.bg-secondary.text-white
-                                        .card-header Contact Info
+                                        .card-header.h3 Contact Info
                                         .card-body #{inst.institutionEmail}
                                     .col.m-2.card.bg-secondary.text-white
-                                        .card-header Manage Courses
+                                        .card-header.h3 Manage Courses
                                         a.btn.btn-lg.btn-primary(href='/student/inst/home/class?institutionID=' + inst.institutionID) View Courses

@@ -7,24 +7,31 @@ block content
             .table
                 .row.m-2
                     form.col.m-2.card.bg-secondary.text-white(action='/inst/update/video', method='post')
-                        .card-header Videos
-                            button#videoSave.close(type='submit', name='institutionID', value=session.passport.user.institutionID) Save
+                        .card-header.h3 Details
+                            //button#videoSave.close(type='submit', name='institutionID', value=session.passport.user.institutionID) Save
                         .card-body
-                            input.form-control(value=session.passport.user.institutionDesc, name='institutionDesc',  maxlength='140')
+                            .row
+                                .col.m-1
+                                    .h4.card-title Description:
+                                    .card-text #{session.passport.user.institutionDesc}
+                                .col.m-1
+                                    .h4.card-title Address:
+                                    .card-text #{session.passport.user.institutionStreetAddr}
+                                    .card-text #{session.passport.user.institutionCity} #{session.passport.user.institutionStateCD}, #{session.passport.user.institutionZipCD}
 
                     form.col.m-2.card.bg-secondary.text-white(action='/inst/update/desc', method='post')
-                        .card-header Institution Description
+                        .card-header.h3 Institution Description
                             button#descSave.close(type='submit', name='institutionID', value=session.passport.user.institutionID) Save
                         .card-body
                             input.form-control(value=session.passport.user.institutionDesc, name='institutionDesc', maxlength='140')
                 .row.m-2
                 .row.m-2
                     form.col.m-2.card.bg-secondary.text-white(action='/inst/update/email', method='post')
-                        .card-header Contact Info
+                        .card-header.h3 Contact Info
                             button#emailSave.close(type='submit', name='institutionID', value=session.passport.user.institutionID) Save
                         .card-body
                             input.form-control(value=session.passport.user.institutionEmail, name ='institutionEmail', maxlength='45')
                     .col.m-2.card.bg-secondary.text-white
-                        .card-header Manage Courses
+                        .card-header.h3 Manage Courses
                         .card-body
                             a.btn.btn-lg.btn-primary(href='/inst/home/class') Manage Courses
