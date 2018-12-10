@@ -35,7 +35,7 @@ exports.inst_login = function(req, res, next) {
 
 /* 14 GET Institution Register Success page. */
 exports.inst_login_reg = function(req, res, next) {
-    res.render('inst/instRegistered', { title: 'Thank You For Registring!',message: ' Your registration will be processed within the next 24 business hours.' });
+    res.render('inst/instRegistered', { title: 'Thank You For Registering! \nAfter you are approved you will be able to log in.',message: ' Your registration will be processed within the next 24 business hours.' });
 };
 
 /* 9 GET Institution Edit page. */
