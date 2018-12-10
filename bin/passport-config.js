@@ -164,7 +164,7 @@ passport.use(new LocalStrategy({usernameField: 'username',passwordField: 'passwo
             console.log('inst: ' + inst);
             console.log(inst);
             if (inst === 'null' || inst === null) {
-                return done(null, false, { message: req.flash('Incorrect username.') });
+                return done(null, false, { message: 'Incorrect username.' });
             }
             if(inst.institutionApproved == 0){
                 return done(null, false, { message: 'Not yet approved!' });

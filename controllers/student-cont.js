@@ -118,6 +118,7 @@ exports.student_sign_up = function(req, res, next) {
         console.log("response");
         console.log(response);
         if(response){
+            req.flash("error"," Username Unavailable! ");
             return res.redirect('/student/login');
         }
         studentModel.studentSave(req.body, function(response){

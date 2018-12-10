@@ -165,6 +165,7 @@ exports.inst_sign_up = function(req, res, next){
     console.log(req.body);
     instModel.instCheck(req, function(response){
         if(response === true){
+            req.flash("error"," Username Unavailable! ");
             return res.redirect('/inst/login');
         }
         instModel.instAddOne(req.body, function(response){

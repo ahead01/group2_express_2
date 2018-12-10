@@ -151,6 +151,7 @@ exports.admin_sign_up = function(req,res,next){
     console.log(req.body);
     adminModel.adminCheck(req, function(response){
         if(response === true){
+            req.flash("error"," Username Unavailable! 1 ");
             return res.redirect('/admin/login');
 
         }
