@@ -55,6 +55,7 @@ exports.inst =  function(req, res, next) {
 };
 exports.post_del_class = function(req,res,next){
     options.path = '/class/delete?classID=' + req.body.classID;
+    options.path = encodeURI(options.path);
     options.method = 'GET';
     http.request(options, function(resp) {
         //console.log('STATUS: ' + res.statusCode);
@@ -75,6 +76,7 @@ exports.post_del_class = function(req,res,next){
 
 exports.post_del_inst = function(req,res,next){
     options.path = '/inst/delete?institutionID=' + req.body.institutionID;
+    options.path = encodeURI(options.path);
     options.method = 'GET';
     http.request(options, function(resp) {
         //console.log('STATUS: ' + res.statusCode);
@@ -96,8 +98,9 @@ exports.post_del_inst = function(req,res,next){
 /* 5 GET Institution Classes */
 exports.inst_classes =  function (req, res, next){
     options.path = '/class/getInstClass?institutionID=' + req.session.passport.user.institutionID;
+    options.path = encodeURI(options.path);
     options.method = 'GET';
-    console.log(options.path);
+    //console.log(options.path);
     http.request(options, function(resp) {
         //console.log('STATUS: ' + res.statusCode);
         //console.log('HEADERS: ' + JSON.stringify(res.headers));
@@ -159,7 +162,7 @@ exports.inst_sign_up = function(req, res, next){
     console.log(req.body);
     instModel.instCheck(req, function(response){
         if(response === true){
-            res.redirect('/inst/login');
+            return res.redirect('/inst/login');
         }
         instModel.instAddOne(req.body, function(response){
             if(response === 'Saved'){

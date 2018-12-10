@@ -11,15 +11,17 @@ var options = {
 };
 
 exports.adminCheck = function (req,callback){
-    options.path = '/admin/checkone/user?adminUserName=' + req.body.username;
+    options.path = '/admin/checkone/user?adminUserName=' + req.body.adminUsername;
+    options.path = encodeURI(options.path);
     options.method = 'GET';
+    //console.log(req.body);
     http.request(options, function(resp) {
         //console.log('STATUS: ' + res.statusCode);
         //console.log('HEADERS: ' + JSON.stringify(res.headers));
         //console.log(JSON.stringify(res.data));
         resp.setEncoding('utf8');
         resp.on('data', function (chunk) {
-            console.log('BODY: ' + chunk);
+            console.log('BODY ttt: ' + chunk);
             return callback(chunk === 'true');
         });
     }).end();
@@ -58,6 +60,7 @@ exports.adminSave = function(user,callback){
 exports.adminFindByUserName = function(username, callback) {
     var err = null;
     options.path = '/admin/getone/user?adminUserName=' + username;
+    options.path = encodeURI(options.path);
     options.method = 'GET';
     options.headers = {"Content-Type": "application/json"};
 

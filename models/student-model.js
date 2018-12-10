@@ -12,7 +12,8 @@ var options = {
 };
 
 exports.studentCheck = function (req,callback){
-    options.path = '/student/checkone/user?studentUserName=' + req.body.username;
+    options.path = '/student/checkone/user?studentUserName=' + req.body.studentUserName;
+    options.path = encodeURI(options.path);
     options.method = 'GET';
     options.headers = {"Content-Type": "application/json"};
     http.request(options, function(resp) {
@@ -66,6 +67,7 @@ exports.studentSave = function(user,callback){
 exports.studentFindByUserName = function(username, callback) {
     var err = null;
     options.path = '/student/getone/user?studentUserName=' + username;
+    options.path = encodeURI(options.path);
     options.method = 'GET';
     options.headers = {"Content-Type": "application/json"};
     http.request(options, function(resp) {

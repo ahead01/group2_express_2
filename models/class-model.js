@@ -10,6 +10,7 @@ var options = {
 
 exports.findClasses = function (keyword, callback) {
     options.path = '/class/getsome?keyword=' + keyword;
+    options.path = encodeURI(options.path);
     options.method = 'GET';
     //console.log(options);
     http.request(options, function(resp) {

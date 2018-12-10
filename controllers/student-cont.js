@@ -115,8 +115,10 @@ exports.student_sign_up = function(req, res, next) {
     console.log('Signing up as a ' + req.type);
     console.log(req.body);
     studentModel.studentCheck(req, function(response){
-        if(response === true){
-
+        console.log("response");
+        console.log(response);
+        if(response){
+            return res.redirect('/student/login');
         }
         studentModel.studentSave(req.body, function(response){
             if(response === true){

@@ -47,6 +47,7 @@ exports.admin_search_results = function(req, res, next) {
 
 exports.post_admin_search = function(req,res,next){
     options.path = '/inst/getSome?keyword=' + req.body.keyword;
+    options.path = encodeURI(options.path);
     options.method = 'GET';
     var data = "";
     http.request(options, function(resp) {
@@ -86,7 +87,7 @@ exports.admin_manage =  function(req, res, next) {
            // console.log("DATA");
             var institutions = {'list':[]};
             institutions.list = JSON.parse(data);
-            console.log(institutions);
+            //console.log(institutions);
             res.render('admin/adminManage', { title: 'Admin Management', results: institutions });
         })
     }).end();
@@ -125,6 +126,7 @@ exports.post_amdin_add_inst =  function(req, res, next) {
 exports.admin_approve_inst = function(req, res, next) {
     console.log(req.body);
     options.path = '/admin/approveInst?approval=' + req.body.submit +'&id=' + req.body.id;
+    options.path = encodeURI(options.path);
     options.method = 'GET';
     var data = "";
     http.request(options, function(resp) {
@@ -149,7 +151,7 @@ exports.admin_sign_up = function(req,res,next){
     console.log(req.body);
     adminModel.adminCheck(req, function(response){
         if(response === true){
-
+            return res.redirect('/admin/login');
 
         }
         adminModel.adminSave(req.body, function(response){

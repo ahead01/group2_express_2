@@ -67,7 +67,8 @@ exports.getFuzzySearchInst = function(srchstr, callback){
 
 exports.instCheck = function (req,callback){
     //console.log(req.body);
-    options.path = '/inst/checkone/user?institutionUserName=' + req.body.username;
+    options.path = '/inst/checkone/user?institutionUserName=' + req.body.institutionName;
+    options.path = encodeURI(options.path);
     options.method = 'GET';
     http.request(options, function(resp) {
         //console.log('STATUS: ' + res.statusCode);
@@ -84,6 +85,7 @@ exports.instCheck = function (req,callback){
 exports.instFindByUserName = function(username, callback) {
     var err = null;
     options.path = '/inst/getone/user?institutionUserName=' + username;
+    options.path = encodeURI(options.path);
     options.method = 'GET';
     options.headers = {"Content-Type": "application/json"};
     http.request(options, function(resp) {
@@ -105,6 +107,7 @@ exports.instFindByUserName = function(username, callback) {
 exports.instFindById = function(id, callback) {
     var err = null;
     options.path = '/inst/getone?' + id;
+    options.path = encodeURI(options.path);
     options.method = 'GET';
     options.headers = {"Content-Type": "application/json"};
     http.request(options, function(resp) {

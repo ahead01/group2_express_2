@@ -125,12 +125,6 @@ exports.authenticationMiddlewareOpposite = function() {
 
 passport.use(new LocalStrategy({usernameField: 'username',passwordField: 'password', passReqToCallback: true },
     function(req, username, password, done) {
-    /**/
-    console.log(req.body);
-    console.log(req.url);
-    console.log("username: " +username);
-    console.log("password: " +password);
-    console.log("done: " +done);
 
     var url = req.url;
 
@@ -142,11 +136,8 @@ passport.use(new LocalStrategy({usernameField: 'username',passwordField: 'passwo
                 return done(null, false, { message: 'Incorrect username.' });
             }
             //student = JSON.parse(student);
-            console.log(student.studentPWD);
+            //console.log(student.studentPWD);
             studentModel.isStudentPasswordValid(password, student.studentPWD, function(err,result){
-                console.log("HERE");
-                console.log(err);
-                console.log(result);
                 if (err){
                     return done(null, false, { message: 'Incorrect password.' });
                 }
@@ -205,7 +196,7 @@ passport.use(new LocalStrategy({usernameField: 'username',passwordField: 'passwo
                 return done(null, false, { message: 'Incorrect username.' });
             }
             //admin = JSON.parse(admin);
-            console.log(admin.adminPWD);
+            //console.log(admin.adminPWD);
             adminModel.isAdminPasswordValid(password, admin.adminPWD, function(err,result){
                 if (err){
                     return done(null, false, { message: 'Incorrect password.' });
@@ -216,10 +207,10 @@ passport.use(new LocalStrategy({usernameField: 'username',passwordField: 'passwo
                 admin.password = admin.adminPWD;
                 admin.username = admin.adminUsername;
                 admin.type = adminVar;
-                console.log('success admin');
-                console.log(err);
-                console.log(result);
-                console.log(admin);
+                //console.log('success admin');
+                //console.log(err);
+                //console.log(result);
+                //console.log(admin);
                 return done(err, admin);
             });
 
